@@ -10,203 +10,275 @@ const t = translations[lang].hero;
 const oneLinerCommand = "git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh";
 ---
 
-<section class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
-  <!-- Glow effects in background -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] glow-indigo rounded-full blur-3xl pointer-events-none -z-10"></div>
-  <div class="absolute top-1/4 right-1/4 w-[400px] h-[300px] glow-cyan rounded-full blur-3xl pointer-events-none -z-10 opacity-70"></div>
+<section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-70"></div>
+  <div class="absolute top-1/3 right-1/4 w-[450px] h-[300px] glow-cyan rounded-full blur-3xl pointer-events-none -z-10 opacity-60"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
     <!-- Tagline Badge -->
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs sm:text-sm font-semibold tracking-wide mb-8 animate-fade-in">
-      <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs sm:text-sm font-semibold tracking-wide mb-8">
+      <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
       {t.tagline}
     </div>
 
-    <!-- Main Title -->
+    <!-- Main Title: High typographic hierarchy & visual impact -->
     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.12]">
       {t.titlePart1}
-      <span class="bg-gradient-to-r from-indigo-400 via-cyan-300 to-indigo-300 bg-clip-text text-transparent block mt-2">
+      <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent block mt-2">
         {t.titlePart2}
       </span>
     </h1>
 
-    <!-- Subtitle -->
+    <!-- Subtitle: Benefit-oriented UX writing -->
     <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
       {t.subtitle}
     </p>
 
-    <!-- One-click Install Command Box -->
+    <!-- Unified Command Launcher & High-Conversion CTA (No box soup) -->
     <div class="mt-10 max-w-3xl mx-auto">
-      <div class="relative group p-1 rounded-2xl bg-gradient-to-r from-indigo-500/30 via-cyan-500/30 to-purple-500/30 shadow-2xl shadow-indigo-950/50">
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#0d121f] rounded-xl px-4 py-3 sm:py-3.5 border border-slate-800">
-          <div class="flex items-center gap-3 overflow-x-auto py-1 scrollbar-none text-left">
-            <span class="text-cyan-400 font-mono font-bold select-none text-base">$</span>
-            <span id="hero-cmd-text" class="font-mono text-xs sm:text-sm text-slate-200 select-all whitespace-nowrap">
-              {oneLinerCommand}
-            </span>
-          </div>
+      <!-- Detected OS recommendation bar -->
+      <div class="mb-3 flex items-center justify-between px-2 text-xs font-mono">
+        <div id="hero-os-badge" class="inline-flex items-center gap-2 text-slate-300">
+          <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="hero-os-icon">⚡</span>
+          <span id="hero-os-name" class="font-semibold text-white">{lang === 'en' ? 'Detecting OS...' : 'Detectando sistema...'}</span>
+          <span class="text-slate-600 hidden sm:inline">•</span>
+          <span id="hero-os-hint" class="text-emerald-400 hidden sm:inline">{lang === 'en' ? 'Optimized for your machine' : 'Recomendado para tu equipo'}</span>
+        </div>
 
-          <button
-            id="hero-copy-btn"
-            data-clipboard={oneLinerCommand}
-            data-copied-text={t.copied}
-            data-default-text={t.copyBtn}
-            class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-md shadow-indigo-600/30 shrink-0 cursor-pointer"
-            title={t.copyBtn}
-          >
-            <svg id="hero-copy-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            <span id="hero-copy-label">{t.copyBtn}</span>
-          </button>
+        <a href="#instalacion" class="text-slate-400 hover:text-emerald-400 transition-colors inline-flex items-center gap-1">
+          {lang === 'en' ? 'All OS options' : 'Ver todos los SO'} ❯
+        </a>
+      </div>
+
+      <!-- Main Command Bar: Single high-contrast container with tactile CTA -->
+      <div class="bg-[#0b101d] rounded-2xl p-2 sm:p-2.5 border border-slate-800 shadow-2xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 text-left">
+        <div class="flex items-center gap-3 overflow-x-auto px-3 py-2 scrollbar-none">
+          <span class="text-emerald-400 font-mono font-bold select-none text-base">$</span>
+          <span id="hero-cmd-text" class="font-mono text-xs sm:text-sm text-slate-200 select-all whitespace-nowrap">
+            {oneLinerCommand}
+          </span>
+        </div>
+
+        <button
+          id="hero-copy-btn"
+          data-clipboard={oneLinerCommand}
+          data-copied-text={t.copied}
+          data-default-text={t.copyBtn}
+          class="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition-all shadow-lg shadow-emerald-500/20 shrink-0 cursor-pointer"
+          title={t.copyBtn}
+        >
+          <svg id="hero-copy-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          <span id="hero-copy-label">{t.copyBtn}</span>
+        </button>
+      </div>
+
+      <!-- Quick Switch Pills for Target OS (Minimal inline tabs, no box borders) -->
+      <div class="mt-3.5 flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
+        <span class="text-slate-500 select-none mr-1">{lang === 'en' ? 'Target OS:' : 'Cambiar SO:'}</span>
+        <button type="button" data-hero-os="auto" class="hero-os-pill active px-3 py-1 rounded-lg transition-all cursor-pointer bg-slate-800 text-white border border-emerald-500/50">
+          ⚡ Auto
+        </button>
+        <button type="button" data-hero-os="macos" class="hero-os-pill px-3 py-1 rounded-lg transition-all cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-transparent hover:border-slate-800">
+          🍎 macOS
+        </button>
+        <button type="button" data-hero-os="cachyos" class="hero-os-pill px-3 py-1 rounded-lg transition-all cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-transparent hover:border-slate-800">
+          ⚡ CachyOS
+        </button>
+        <button type="button" data-hero-os="ubuntu" class="hero-os-pill px-3 py-1 rounded-lg transition-all cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-transparent hover:border-slate-800">
+          🐧 Ubuntu
+        </button>
+        <button type="button" data-hero-os="wsl2" class="hero-os-pill px-3 py-1 rounded-lg transition-all cursor-pointer bg-slate-900/80 text-slate-400 hover:text-white border border-transparent hover:border-slate-800">
+          🪟 WSL2
+        </button>
+      </div>
+
+      <!-- Friction reduction / Trust Signals (Miller's law chunking) -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-400">
+        <div class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+          <span>{t.trustOffline}</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          <span>{t.trustTokens}</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+          </svg>
+          <span>{t.trustBackups}</span>
         </div>
       </div>
-      <p class="mt-2.5 text-xs text-slate-400 flex items-center justify-center gap-2">
-        <svg class="w-3.5 h-3.5 text-emerald-400 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-        </svg>
-        {t.osNotice}
-      </p>
     </div>
 
-    <!-- Quick Action Links -->
-    <div class="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm">
+    <!-- Quick Action / Interactive Demo CTA -->
+    <div class="mt-8 flex items-center justify-center gap-4 text-xs sm:text-sm">
       <a
         href="#demo"
-        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-white font-semibold transition-all shadow-sm"
+        class="inline-flex items-center gap-2 text-slate-300 hover:text-white transition-colors font-medium py-2 px-4 rounded-xl hover:bg-slate-800/40"
       >
-        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>
-        {t.tryDemo}
-      </a>
-      <a
-        href="#instalacion"
-        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-transparent hover:bg-slate-800/50 border border-slate-800 text-slate-300 hover:text-white font-semibold transition-all"
-      >
-        <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-        </svg>
-        {t.viewOptions}
+        <span>{t.tryDemo}</span>
       </a>
     </div>
 
-    <!-- Visual Terminal Mockup (WezTerm Tokyo Night Aesthetic) -->
-    <div class="mt-14 max-w-5xl mx-auto text-left">
-      <div class="rounded-2xl bg-[#0b0f19] border border-slate-800/90 shadow-2xl terminal-shadow overflow-hidden">
-        <!-- Terminal Titlebar -->
-        <div class="bg-[#101625] px-4 py-3 border-b border-slate-800/90 flex items-center justify-between">
+    <!-- Real Terminal Showcase (Authentic Tokyo Night Window, no nested box frames) -->
+    <div class="mt-12 max-w-5xl mx-auto text-left">
+      <div class="rounded-2xl overflow-hidden bg-[#16161e] border border-slate-800/90 shadow-2xl terminal-shadow">
+        <!-- Terminal Header with macOS Window Controls -->
+        <div class="bg-[#1a1b26] px-4 py-3 border-b border-slate-800/80 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-[#ff5f56] inline-block shadow-sm"></span>
-            <span class="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block shadow-sm"></span>
-            <span class="w-3 h-3 rounded-full bg-[#27c93f] inline-block shadow-sm"></span>
-            <span class="ml-2 text-xs font-mono text-slate-400 hidden sm:inline">{t.terminalTitle}</span>
+            <span class="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
+            <span class="ml-2 font-mono text-xs text-slate-400">~/dotfiles — wezterm (Tokyo Night)</span>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-              Ollama: qwen2.5-coder:1.5b
-            </span>
-            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              {t.localAi}
-            </span>
-          </div>
+          <span class="font-mono text-[11px] text-emerald-400/90 hidden sm:inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Ollama Local AI (qwen2.5-coder:1.5b)
+          </span>
         </div>
 
-        <!-- Terminal Content Area -->
-        <div class="p-4 sm:p-6 font-mono text-xs sm:text-sm text-slate-300 space-y-4 bg-[#0a0e1a]/95 backdrop-blur-md">
-          <!-- Fastfetch Compact Banner -->
-          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 pb-4 border-b border-slate-800/60">
-            <div class="md:col-span-4 text-cyan-400 leading-tight text-[11px] select-none font-bold">
-              <pre class="font-mono text-cyan-300">
-  ____  _ _ _      
- |  _ \(_) (_)     
- | | | |_| |___  __
- | |_| | | | \ \/ /
- |____/|_|_|_|/\_\ 
-              </pre>
-              <div class="text-[10px] text-slate-500 mt-1">sqlsec/fastfetch dynamic themes</div>
-            </div>
-            <div class="md:col-span-8 text-xs space-y-1 text-slate-300">
-              <div><span class="text-indigo-400 font-semibold">OS:</span> macOS / CachyOS / Ubuntu / WSL2</div>
-              <div><span class="text-indigo-400 font-semibold">Host:</span> Developer Workstation (Nerd Fonts v3.2)</div>
-              <div><span class="text-indigo-400 font-semibold">Shell:</span> Zsh 5.9 + Starship 1.21 + Atuin + Zoxide</div>
-              <div><span class="text-indigo-400 font-semibold">Terminal:</span> WezTerm 2024 (Tokyo Night • Blur 20)</div>
-              <div><span class="text-indigo-400 font-semibold">AI Copilot:</span> Dilix Engine (0 token latency, 100% offline)</div>
-            </div>
-          </div>
-
-          <!-- Starship Prompt Line 1 -->
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-indigo-400 font-bold">danniel@macbook</span>
-            <span class="text-slate-500">in</span>
-            <span class="text-cyan-300 font-semibold">~/projects/api</span>
-            <span class="text-purple-400">on</span>
-            <span class="text-emerald-400 font-semibold">git:(main ⇡1)</span>
-          </div>
-
-          <!-- Command Execution -->
-          <div class="flex items-center gap-2 text-slate-200">
-            <span class="text-emerald-400 font-bold">❯</span>
-            <span class="text-amber-300">ask</span>
-            <span class="text-emerald-200">"{t.askQuery}"</span>
-          </div>
-
-          <!-- Dilix AI Response Box -->
-          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-indigo-500/30 space-y-2.5">
-            <div class="flex items-center justify-between text-xs border-b border-slate-800 pb-2">
-              <span class="text-cyan-400 font-semibold flex items-center gap-1.5">
-                <span class="text-base">🧠</span> Dilix Copilot (qwen2.5-coder:1.5b)
-              </span>
-              <span class="text-[10px] text-slate-400">{t.askLatency}</span>
-            </div>
-            <p class="text-slate-300 text-xs">
-              {t.askExplanation}
-            </p>
-            <div class="bg-[#050811] p-2.5 rounded-lg border border-slate-800 text-emerald-400 font-mono text-xs flex items-center justify-between">
-              <span>lsof -ti :3000 | xargs kill -9</span>
-              <span class="text-[10px] text-slate-500">{t.askSuggested}</span>
-            </div>
-            <div class="flex items-center gap-2 pt-1 text-[11px]">
-              <span class="px-2 py-0.5 rounded bg-indigo-600/30 text-indigo-300 border border-indigo-500/40">{t.btnRun}</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">{t.btnPrompt}</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">{t.btnCopy}</span>
-            </div>
-          </div>
-
-          <!-- Starship Prompt Line 2 -->
-          <div class="flex items-center gap-2">
-            <span class="text-indigo-400 font-bold">danniel@macbook</span>
-            <span class="text-emerald-400 font-bold">❯</span>
-            <span class="inline-block w-2.5 h-4 bg-cyan-400 animate-pulse"></span>
-          </div>
-        </div>
+        <img
+          src={`/${lang}/hero-ask.gif`}
+          alt={lang === 'en' ? 'Dilix ask command real terminal demonstration' : 'Demostración real del comando ask de Dilix en la terminal'}
+          class="w-full h-auto block select-none"
+          loading="eager"
+          width="1200"
+          height="680"
+        />
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  // Clipboard copy handler for Hero command
+<script define:vars={{ lang }}>
+  const langFlag = lang === 'en' ? '--en' : '--es';
+
+  const osCommands = {
+    auto: {
+      icon: '⚡',
+      name: lang === 'en' ? 'Universal Detection' : 'Detección Automática',
+      hint: lang === 'en' ? 'Universal installer' : 'Instalador universal',
+      cmd: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh`
+    },
+    macos: {
+      icon: '🍎',
+      name: 'macOS',
+      hint: lang === 'en' ? 'Homebrew & WezTerm native blur' : 'Homebrew y desenfoque WezTerm',
+      cmd: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --macos ${langFlag}`
+    },
+    cachyos: {
+      icon: '⚡',
+      name: 'CachyOS (Arch)',
+      hint: lang === 'en' ? 'Paru/Pacman & GPU auto-detect' : 'Paru/Pacman y GPU CUDA/ROCm',
+      cmd: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --cachyos ${langFlag}`
+    },
+    ubuntu: {
+      icon: '🐧',
+      name: 'Ubuntu / Debian',
+      hint: lang === 'en' ? 'APT & modern PPAs' : 'APT y PPAs modernos',
+      cmd: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --ubuntu ${langFlag}`
+    },
+    wsl2: {
+      icon: '🪟',
+      name: 'Windows 11 (WSL2)',
+      hint: lang === 'en' ? 'WinBridge & clip.exe' : 'WinBridge y clip.exe',
+      cmd: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --wsl2 ${langFlag}`
+    }
+  };
+
+  const cmdText = document.getElementById('hero-cmd-text');
   const copyBtn = document.getElementById('hero-copy-btn');
   const copyLabel = document.getElementById('hero-copy-label');
+  const osIcon = document.getElementById('hero-os-icon');
+  const osName = document.getElementById('hero-os-name');
+  const osHint = document.getElementById('hero-os-hint');
+  const osPills = document.querySelectorAll('.hero-os-pill');
 
+  function setHeroOs(osKey, isAuto = false) {
+    const data = osCommands[osKey] || osCommands.auto;
+    if (cmdText) cmdText.textContent = data.cmd;
+    if (copyBtn) copyBtn.setAttribute('data-clipboard', data.cmd);
+    if (osIcon) osIcon.textContent = data.icon;
+    if (osName) osName.textContent = isAuto ? `${data.name} (${lang === 'en' ? 'Detected' : 'Detectado'})` : data.name;
+    if (osHint) osHint.textContent = data.hint;
+
+    osPills.forEach(pill => {
+      const pillOs = pill.getAttribute('data-hero-os');
+      if (pillOs === osKey) {
+        pill.classList.add('bg-slate-800', 'text-white', 'border-emerald-500/50');
+        pill.classList.remove('bg-slate-900/80', 'text-slate-400', 'border-transparent');
+      } else {
+        pill.classList.remove('bg-slate-800', 'text-white', 'border-emerald-500/50');
+        pill.classList.add('bg-slate-900/80', 'text-slate-400', 'border-transparent');
+      }
+    });
+
+    window.dispatchEvent(new CustomEvent('dilix-os-selected', { detail: { os: osKey } }));
+  }
+
+  // Detect OS from navigator
+  function detectOS() {
+    try {
+      const ua = (navigator.userAgent || '').toLowerCase();
+      const platform = (((navigator).userAgentData && (navigator).userAgentData.platform) || navigator.platform || '').toLowerCase();
+
+      if (platform.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) {
+        return 'macos';
+      }
+      if (platform.includes('win') || ua.includes('windows')) {
+        return 'wsl2';
+      }
+      if (platform.includes('linux') || ua.includes('linux') || ua.includes('x11')) {
+        if (ua.includes('cachyos') || ua.includes('arch') || ua.includes('manjaro') || ua.includes('endeavour')) {
+          return 'cachyos';
+        }
+        return 'ubuntu';
+      }
+    } catch (e) {
+      console.warn('OS detection fallback', e);
+    }
+    return 'auto';
+  }
+
+  // Initialize with detected OS
+  const detected = detectOS();
+  setHeroOs(detected, true);
+
+  // Pill click handlers
+  osPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const os = pill.getAttribute('data-hero-os');
+      if (os) setHeroOs(os, false);
+    });
+  });
+
+  // Clipboard copy handler for Hero command
   if (copyBtn && copyLabel) {
     copyBtn.addEventListener('click', async () => {
       const textToCopy = copyBtn.getAttribute('data-clipboard') || '';
-      const copiedText = copyBtn.getAttribute('data-copied-text') || '¡Copiado!';
-      const defaultText = copyBtn.getAttribute('data-default-text') || 'Copiar Comando';
+      const copiedText = copyBtn.getAttribute('data-copied-text') || '✓ ¡Copiado!';
+      const defaultText = copyBtn.getAttribute('data-default-text') || 'Copiar e Instalar';
       try {
         await navigator.clipboard.writeText(textToCopy);
         copyLabel.textContent = copiedText;
-        copyBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-500');
-        copyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+        copyBtn.classList.add('bg-emerald-400');
 
         setTimeout(() => {
           copyLabel.textContent = defaultText;
-          copyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
-          copyBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-500');
+          copyBtn.classList.remove('bg-emerald-400');
         }, 2500);
       } catch (err) {
         console.error('Error al copiar:', err);

@@ -9,10 +9,14 @@ const { lang = 'es' } = Astro.props;
 const t = translations[lang].demo;
 ---
 
-<section id="demo" class="py-24 relative overflow-hidden bg-[#070b13]">
+<section id="demo" class="py-24 relative overflow-hidden bg-[#060911]">
+  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-30"></div>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4">
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         {t.eyebrow}
       </div>
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
@@ -22,35 +26,42 @@ const t = translations[lang].demo;
         {t.subtitle}
       </p>
 
-      <!-- Command Quick Selection Buttons -->
+      <!-- Command Quick Selection Buttons (Clean pills) -->
       <div class="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
         <button
           type="button"
           data-demo-cmd="ask"
-          class="demo-cmd-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30"
+          class="demo-cmd-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-emerald-500 text-slate-950 font-bold border border-emerald-400 shadow-md shadow-emerald-500/20"
         >
           {t.btnAsk}
         </button>
         <button
           type="button"
           data-demo-cmd="fix"
-          class="demo-cmd-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
           {t.btnFix}
         </button>
         <button
           type="button"
           data-demo-cmd="menu"
-          class="demo-cmd-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
           {t.btnMenu}
         </button>
         <button
           type="button"
           data-demo-cmd="ff"
-          class="demo-cmd-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
           {t.btnFf}
+        </button>
+        <button
+          type="button"
+          data-demo-cmd="explain"
+          class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
+        >
+          {t.btnExplain}
         </button>
         <button
           type="button"
@@ -62,7 +73,7 @@ const t = translations[lang].demo;
       </div>
     </div>
 
-    <!-- Terminal Window Container -->
+    <!-- Terminal Window Container (Clean authentic shell chrome) -->
     <div
       class="max-w-4xl mx-auto rounded-2xl bg-[#090d16] border border-slate-800 shadow-2xl terminal-shadow overflow-hidden"
       data-lang={lang}
@@ -70,21 +81,26 @@ const t = translations[lang].demo;
       data-copy-text={t.copyOutput}
     >
       <!-- Titlebar -->
-      <div class="bg-[#0f1422] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+      <div class="bg-[#121624] px-4 py-3 border-b border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <span class="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
           <span class="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
           <span class="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
-          <span class="ml-2 font-mono text-xs text-slate-400">dilix-session — wezterm interactive</span>
+          <span id="demo-active-title" class="ml-2 font-mono text-xs text-slate-300 font-medium">ask "como ver puertos y procesos"</span>
         </div>
         <div class="flex items-center gap-3">
-          <span class="text-[11px] font-mono text-slate-400 hidden sm:inline">Ctrl + G {lang === 'en' ? 'for self-diagnosis' : 'para autodiagnóstico'}</span>
+          <span id="demo-os-tag" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 border border-slate-700 hidden sm:inline">
+            Host: Auto
+          </span>
+          <span id="demo-active-badge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hidden sm:inline">
+            Dilix Copilot
+          </span>
           <button
             id="demo-copy-output"
-            class="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors cursor-pointer"
+            class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition-all cursor-pointer"
             title={t.copyOutput}
           >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
             </svg>
             <span id="demo-copy-feedback">{t.copyOutput}</span>
@@ -92,9 +108,26 @@ const t = translations[lang].demo;
         </div>
       </div>
 
-      <!-- Terminal Body -->
-      <div id="terminal-screen" class="p-6 font-mono text-xs sm:text-sm text-slate-200 min-h-[380px] max-h-[520px] overflow-y-auto space-y-4">
-        <!-- Dynamically populated by JS -->
+      <!-- Real Terminal GIF Screen Area -->
+      <div id="terminal-screen" class="relative bg-[#16161e] overflow-hidden min-h-[300px]">
+        <img
+          id="demo-terminal-gif"
+          src={`/${lang}/hero-ask.gif`}
+          alt="Dilix terminal recording preview"
+          class="w-full h-auto block select-none transition-opacity duration-200"
+          loading="eager"
+          width="1200"
+          height="680"
+        />
+
+        <div id="demo-terminal-placeholder" class="hidden min-h-[320px] flex flex-col items-center justify-center p-8 text-center bg-[#16161e] space-y-3 font-mono">
+          <div class="text-slate-500 text-sm">
+            {lang === 'en' ? 'Terminal session cleared.' : 'Sesión de terminal reiniciada.'}
+          </div>
+          <div class="text-xs text-slate-400">
+            {lang === 'en' ? 'Click any preset command above or type below to replay real execution.' : 'Haz clic en cualquier comando arriba o escribe abajo para ver la ejecución real.'}
+          </div>
+        </div>
       </div>
 
       <!-- Bottom Interactive Input bar -->
@@ -116,295 +149,166 @@ const t = translations[lang].demo;
   const container = document.querySelector('[data-lang]');
   const currentLang = container?.getAttribute('data-lang') || 'es';
   const copiedLabel = container?.getAttribute('data-copied-text') || '¡Copiado!';
-  const copyLabel = container?.getAttribute('data-copy-text') || 'Copiar';
+  const copyLabel = container?.getAttribute('data-copy-text') || 'Copiar Comando';
 
-  const demoOutputsEs = {
-    ask: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-slate-500">in</span> <span class="text-cyan-300">~/projects</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">ask "como buscar archivos modificados en las últimas 24 horas"</span>
-</div>
-<div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/40 space-y-3 mt-2 shadow-lg">
-  <div class="flex items-center justify-between text-xs border-b border-slate-800 pb-2">
-    <span class="text-cyan-400 font-bold flex items-center gap-2">
-      <span>🧠</span> Dilix Copilot • qwen2.5-coder:1.5b
-    </span>
-    <span class="text-[11px] text-slate-400">Latencia: 180ms • Local IPC</span>
-  </div>
-  <p class="text-slate-300">
-    Comando optimizado usando <span class="text-cyan-300 font-semibold">find</span> con filtro de tiempo relativo:
-  </p>
-  <div class="bg-[#050811] p-3 rounded-lg border border-slate-800 text-emerald-400 font-mono text-sm flex items-center justify-between">
-    <code>find . -maxdepth 2 -mtime -1 -type f</code>
-    <span class="text-[11px] text-slate-500">[24h / depth 2]</span>
-  </div>
-  <div class="flex items-center gap-2 text-xs pt-1">
-    <span class="px-2.5 py-1 rounded bg-indigo-600 text-white font-semibold cursor-pointer hover:bg-indigo-500">[E]jecutar directamente</span>
-    <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 cursor-pointer hover:bg-slate-700">[P]ersonalizar Prompt</span>
-    <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 cursor-pointer hover:bg-slate-700">[C]opiar al Portapapeles</span>
-  </div>
-</div>
-`,
-    fix: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-slate-500">in</span> <span class="text-cyan-300">~/dotfiles</span> <span class="text-emerald-400">❯</span>
-  <span class="text-rose-400 font-normal">git push origin main</span>
-</div>
-<div class="text-rose-400 text-xs bg-rose-950/30 border border-rose-800/40 p-2.5 rounded-lg my-1">
-  git@github.com: Permission denied (publickey).<br/>
-  fatal: Could not read from remote repository.
-</div>
-<div class="flex items-center gap-2 text-indigo-400 font-bold mt-3">
-  <span>danniel@workstation</span> <span class="text-slate-500">in</span> <span class="text-cyan-300">~/dotfiles</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">fix</span>
-</div>
-<div class="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/40 space-y-2 mt-2">
-  <div class="text-cyan-400 font-bold text-xs flex items-center gap-2">
-    <span>⚡</span> Diagnóstico Dilix: Clave SSH no cargada en ssh-agent
-  </div>
-  <p class="text-slate-300 text-xs">
-    Tu agente SSH no tiene tu clave cargada en memoria para autenticar con GitHub.
-  </p>
-  <div class="bg-[#050811] p-2.5 rounded-lg border border-slate-800 text-emerald-400 font-mono text-xs">
-    eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
-  </div>
-  <div class="text-[11px] text-slate-400">
-    Presiona <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-200">Enter</kbd> para ejecutar el arreglo y reintentar el push de forma segura.
-  </div>
-</div>
-`,
-    menu: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">dilix menu</span>
-</div>
-<div class="p-4 rounded-xl bg-[#060912] border border-indigo-500/30 text-xs space-y-2 font-mono">
-  <div class="text-indigo-400 font-bold">╭─ Dilix Interactive CLI Hub (v1.4.2) ─────────────╮</div>
-  <div class="text-slate-300 pl-2">Selecciona una acción con las flechas [↑/↓]:</div>
-  <div class="space-y-1 pl-4 pt-1">
-    <div class="text-cyan-300 font-bold">● [1] Consultar Asistente de IA (ask)</div>
-    <div class="text-slate-400">○ [2] Analizar último error de terminal (fix)</div>
-    <div class="text-slate-400">○ [3] Administrar Modelos de Ollama (qwen, deepseek, llama3)</div>
-    <div class="text-slate-400">○ [4] Cambiar Idioma (Español / English)</div>
-    <div class="text-slate-400">○ [5] Diagnóstico de Enlaces Simbólicos (~/dotfiles)</div>
-    <div class="text-slate-400">○ [6] Salir</div>
-  </div>
-  <div class="text-indigo-400 font-bold">╰──────────────────────────────────────────────────╯</div>
-</div>
-`,
-    ff: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">ff</span>
-</div>
-<div class="p-4 rounded-xl bg-[#060912] border border-slate-800 text-xs font-mono grid grid-cols-1 md:grid-cols-12 gap-3">
-  <div class="md:col-span-5 text-cyan-400 font-bold leading-tight select-none">
-<pre>
-       /\
-      /  \
-     /\   \
-    /      \
-   /   ,,   \
-  /   |  |  -\
- /_-''    ''-_\\
-</pre>
-    <div class="text-[10px] text-indigo-400 mt-1">sqlsec/fastfetch dynamic logo</div>
-  </div>
-  <div class="md:col-span-7 space-y-1 text-slate-300 text-xs">
-    <div><span class="text-indigo-400 font-bold">OS:</span> macOS Sequoia 15.3.1 (Darwin 24.3.0)</div>
-    <div><span class="text-indigo-400 font-bold">Host:</span> Apple Silicon M-Series</div>
-    <div><span class="text-indigo-400 font-bold">Uptime:</span> 4 days, 6 hours, 28 mins</div>
-    <div><span class="text-indigo-400 font-bold">Packages:</span> 142 (brew), 8 (cargo)</div>
-    <div><span class="text-indigo-400 font-bold">Shell:</span> zsh 5.9 with Starship + Dilix AI</div>
-    <div><span class="text-indigo-400 font-bold">Terminal:</span> WezTerm 20240203 (Tokyo Night)</div>
-    <div><span class="text-indigo-400 font-bold">Memory:</span> 4.12 GiB / 36.00 GiB (11%)</div>
-  </div>
-</div>
-`
+  const demoData = {
+    ask: {
+      gif: `/${currentLang}/hero-ask.gif`,
+      cmd: currentLang === 'en' ? 'ask "how to find listening ports and their processes"' : 'ask "como ver puertos y procesos escuchando en el sistema"',
+      title: currentLang === 'en' ? 'ask "how to find listening ports..."' : 'ask "como ver puertos y procesos..."',
+      badge: 'Dilix Copilot'
+    },
+    fix: {
+      gif: `/${currentLang}/feature-fix.gif`,
+      cmd: 'fix',
+      title: 'fix — Error auto-diagnosis (Ctrl + G)',
+      badge: 'Auto-Diagnosis'
+    },
+    menu: {
+      gif: `/${currentLang}/feature-menu.gif`,
+      cmd: 'dilix menu',
+      title: 'dilix menu — Interactive CLI Hub',
+      badge: 'Interactive Menu'
+    },
+    ff: {
+      gif: `/${currentLang}/feature-terminal.gif`,
+      cmd: 'ff',
+      title: 'ff — Tokyo Night & Fastfetch',
+      badge: 'Terminal Showcase'
+    },
+    explain: {
+      gif: `/${currentLang}/feature-explain.gif`,
+      cmd: 'dilix explain "git rebase -i HEAD~3"',
+      title: 'dilix explain "git rebase -i HEAD~3"',
+      badge: 'Code Explanation'
+    }
   };
 
-  const demoOutputsEn = {
-    ask: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-slate-500">in</span> <span class="text-cyan-300">~/projects</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">ask "find files modified in the last 24 hours"</span>
-</div>
-<div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/40 space-y-3 mt-2 shadow-lg">
-  <div class="flex items-center justify-between text-xs border-b border-slate-800 pb-2">
-    <span class="text-cyan-400 font-bold flex items-center gap-2">
-      <span>🧠</span> Dilix Copilot • qwen2.5-coder:1.5b
-    </span>
-    <span class="text-[11px] text-slate-400">Latency: 180ms • Local IPC</span>
-  </div>
-  <p class="text-slate-300">
-    Optimized command using <span class="text-cyan-300 font-semibold">find</span> with relative timestamp filter:
-  </p>
-  <div class="bg-[#050811] p-3 rounded-lg border border-slate-800 text-emerald-400 font-mono text-sm flex items-center justify-between">
-    <code>find . -maxdepth 2 -mtime -1 -type f</code>
-    <span class="text-[11px] text-slate-500">[24h / depth 2]</span>
-  </div>
-  <div class="flex items-center gap-2 text-xs pt-1">
-    <span class="px-2.5 py-1 rounded bg-indigo-600 text-white font-semibold cursor-pointer hover:bg-indigo-500">[E]xecute directly</span>
-    <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 cursor-pointer hover:bg-slate-700">[P]ersonalize Prompt</span>
-    <span class="px-2.5 py-1 rounded bg-slate-800 text-slate-300 cursor-pointer hover:bg-slate-700">[C]opy to Clipboard</span>
-  </div>
-</div>
-`,
-    fix: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-slate-500">in</span> <span class="text-cyan-300">~/dotfiles</span> <span class="text-emerald-400">❯</span>
-  <span class="text-rose-400 font-normal">git push origin main</span>
-</div>
-<div class="text-rose-400 text-xs bg-rose-950/30 border border-rose-800/40 p-2.5 rounded-lg my-1">
-  git@github.com: Permission denied (publickey).<br/>
-  fatal: Could not read from remote repository.
-</div>
-<div class="flex items-center gap-2 text-indigo-400 font-bold mt-3">
-  <span>danniel@workstation</span> <span class="text-slate-500">in</span> <span class="text-cyan-300">~/dotfiles</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">fix</span>
-</div>
-<div class="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/40 space-y-2 mt-2">
-  <div class="text-cyan-400 font-bold text-xs flex items-center gap-2">
-    <span>⚡</span> Dilix Diagnostic: SSH key not loaded in ssh-agent
-  </div>
-  <p class="text-slate-300 text-xs">
-    Your current SSH agent doesn't have your private key loaded in memory for GitHub authentication.
-  </p>
-  <div class="bg-[#050811] p-2.5 rounded-lg border border-slate-800 text-emerald-400 font-mono text-xs">
-    eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
-  </div>
-  <div class="text-[11px] text-slate-400">
-    Press <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-200">Enter</kbd> to execute this fix and safely retry the push.
-  </div>
-</div>
-`,
-    menu: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">dilix menu</span>
-</div>
-<div class="p-4 rounded-xl bg-[#060912] border border-indigo-500/30 text-xs space-y-2 font-mono">
-  <div class="text-indigo-400 font-bold">╭─ Dilix Interactive CLI Hub (v1.4.2) ─────────────╮</div>
-  <div class="text-slate-300 pl-2">Select an action using arrow keys [↑/↓]:</div>
-  <div class="space-y-1 pl-4 pt-1">
-    <div class="text-cyan-300 font-bold">● [1] Query AI Assistant (ask)</div>
-    <div class="text-slate-400">○ [2] Diagnose last shell error (fix)</div>
-    <div class="text-slate-400">○ [3] Manage Ollama Models (qwen, deepseek, llama3)</div>
-    <div class="text-slate-400">○ [4] Switch Language (English / Español)</div>
-    <div class="text-slate-400">○ [5] Check Symlink Integrity (~/dotfiles)</div>
-    <div class="text-slate-400">○ [6] Exit</div>
-  </div>
-  <div class="text-indigo-400 font-bold">╰──────────────────────────────────────────────────╯</div>
-</div>
-`,
-    ff: `
-<div class="flex items-center gap-2 text-indigo-400 font-bold">
-  <span>danniel@workstation</span> <span class="text-emerald-400">❯</span>
-  <span class="text-amber-300 font-normal">ff</span>
-</div>
-<div class="p-4 rounded-xl bg-[#060912] border border-slate-800 text-xs font-mono grid grid-cols-1 md:grid-cols-12 gap-3">
-  <div class="md:col-span-5 text-cyan-400 font-bold leading-tight select-none">
-<pre>
-       /\
-      /  \
-     /\   \
-    /      \
-   /   ,,   \
-  /   |  |  -\
- /_-''    ''-_\\
-</pre>
-    <div class="text-[10px] text-indigo-400 mt-1">sqlsec/fastfetch dynamic logo</div>
-  </div>
-  <div class="md:col-span-7 space-y-1 text-slate-300 text-xs">
-    <div><span class="text-indigo-400 font-bold">OS:</span> macOS Sequoia 15.3.1 (Darwin 24.3.0)</div>
-    <div><span class="text-indigo-400 font-bold">Host:</span> Apple Silicon M-Series</div>
-    <div><span class="text-indigo-400 font-bold">Uptime:</span> 4 days, 6 hours, 28 mins</div>
-    <div><span class="text-indigo-400 font-bold">Packages:</span> 142 (brew), 8 (cargo)</div>
-    <div><span class="text-indigo-400 font-bold">Shell:</span> zsh 5.9 with Starship + Dilix AI</div>
-    <div><span class="text-indigo-400 font-bold">Terminal:</span> WezTerm 20240203 (Tokyo Night)</div>
-    <div><span class="text-indigo-400 font-bold">Memory:</span> 4.12 GiB / 36.00 GiB (11%)</div>
-  </div>
-</div>
-`
-  };
-
-  const demoOutputs = currentLang === 'en' ? demoOutputsEn : demoOutputsEs;
-  const screen = document.getElementById('terminal-screen');
+  const gifElement = document.getElementById('demo-terminal-gif') as HTMLImageElement | null;
+  const placeholderElement = document.getElementById('demo-terminal-placeholder');
+  const activeTitle = document.getElementById('demo-active-title');
+  const activeBadge = document.getElementById('demo-active-badge');
   const cmdBtns = document.querySelectorAll('.demo-cmd-btn');
   const clearBtn = document.getElementById('demo-clear-btn');
-  const customInput = document.getElementById('terminal-custom-input');
+  const customInput = document.getElementById('terminal-custom-input') as HTMLInputElement | null;
   const copyOutputBtn = document.getElementById('demo-copy-output');
   const copyFeedback = document.getElementById('demo-copy-feedback');
 
-  function renderCommand(cmdKey) {
-    if (!screen) return;
-    const content = demoOutputs[cmdKey] || `
-      <div class="text-rose-400 text-xs">Command not recognized: ${cmdKey}. Try 'ask', 'fix', 'menu', or 'ff'.</div>
-    `;
-    screen.innerHTML = content;
-    screen.scrollTop = screen.scrollHeight;
-  }
+  let currentActiveCmd = 'ask';
 
-  // Initial load
-  renderCommand('ask');
+  function switchCommand(cmdKey: string) {
+    const data = demoData[cmdKey as keyof typeof demoData] || demoData.ask;
+    currentActiveCmd = cmdKey in demoData ? cmdKey : 'ask';
+
+    if (gifElement) {
+      gifElement.classList.add('opacity-0');
+      setTimeout(() => {
+        gifElement.src = data.gif;
+        gifElement.classList.remove('opacity-0');
+      }, 100);
+
+      if (placeholderElement) {
+        placeholderElement.classList.add('hidden');
+        gifElement.classList.remove('hidden');
+      }
+    }
+
+    if (activeTitle) activeTitle.textContent = data.title;
+    if (activeBadge) activeBadge.textContent = data.badge;
+
+    cmdBtns.forEach(btn => {
+      const btnCmd = btn.getAttribute('data-demo-cmd');
+      if (btnCmd === cmdKey) {
+        btn.classList.add('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-400', 'shadow-md', 'shadow-emerald-500/20');
+        btn.classList.remove('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
+      } else {
+        btn.classList.remove('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-400', 'shadow-md', 'shadow-emerald-500/20');
+        btn.classList.add('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
+      }
+    });
+  }
 
   // Button clicks
   cmdBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      cmdBtns.forEach(b => {
-        b.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-md', 'shadow-indigo-600/30');
-        b.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
-      });
-      btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-md', 'shadow-indigo-600/30');
-      btn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
-
       const cmd = btn.getAttribute('data-demo-cmd');
-      if (cmd) renderCommand(cmd);
+      if (cmd) switchCommand(cmd);
     });
   });
 
   // Clear button
-  if (clearBtn && screen) {
+  if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      screen.innerHTML = `
-        <div class="text-slate-500 text-xs font-mono">${currentLang === 'en' ? 'Terminal cleared. Click a command above or type below.' : 'Terminal limpio. Haz clic en un comando arriba o escribe abajo.'}</div>
-      `;
+      if (gifElement && placeholderElement) {
+        gifElement.classList.add('hidden');
+        placeholderElement.classList.remove('hidden');
+      }
+      if (activeTitle) activeTitle.textContent = currentLang === 'en' ? 'Session cleared' : 'Sesión reiniciada';
+      if (activeBadge) activeBadge.textContent = 'Idle';
+      cmdBtns.forEach(b => {
+        b.classList.remove('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-400', 'shadow-md', 'shadow-emerald-500/20');
+        b.classList.add('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
+      });
     });
   }
 
-  // Interactive input Enter handler
+  // Input listener
   if (customInput) {
     customInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const val = customInput.value.trim().toLowerCase();
         if (!val) return;
 
-        if (val.includes('ask')) renderCommand('ask');
-        else if (val.includes('fix')) renderCommand('fix');
-        else if (val.includes('menu')) renderCommand('menu');
-        else if (val.includes('ff') || val.includes('fastfetch')) renderCommand('ff');
+        if (val.includes('fix')) switchCommand('fix');
+        else if (val.includes('menu')) switchCommand('menu');
+        else if (val.includes('ff') || val.includes('fastfetch') || val.includes('term')) switchCommand('ff');
+        else if (val.includes('explain') || val.includes('rebase')) switchCommand('explain');
         else if (val === 'clear') {
-          if (screen) screen.innerHTML = `<div class="text-slate-500 text-xs">Terminal cleared.</div>`;
+          if (clearBtn) clearBtn.click();
         } else {
-          renderCommand('ask');
+          switchCommand('ask');
+          if (activeTitle) activeTitle.textContent = customInput.value;
         }
         customInput.value = '';
       }
     });
   }
 
-  // Copy output
-  if (copyOutputBtn && copyFeedback && screen) {
+  // Copy command
+  if (copyOutputBtn && copyFeedback) {
     copyOutputBtn.addEventListener('click', async () => {
+      const activeData = demoData[currentActiveCmd as keyof typeof demoData] || demoData.ask;
       try {
-        await navigator.clipboard.writeText(screen.innerText);
+        await navigator.clipboard.writeText(activeData.cmd);
         copyFeedback.textContent = copiedLabel;
+        copyOutputBtn.classList.add('border-emerald-500', 'text-emerald-400');
         setTimeout(() => {
           copyFeedback.textContent = copyLabel;
+          copyOutputBtn.classList.remove('border-emerald-500', 'text-emerald-400');
         }, 2000);
       } catch (err) {
-        console.error('Error copying text:', err);
+        console.error('Error copying command:', err);
       }
     });
   }
+
+  // Detect Host OS for titlebar tag
+  try {
+    const ua = (navigator.userAgent || '').toLowerCase();
+    const plat = (((navigator as any).userAgentData?.platform) || navigator.platform || '').toLowerCase();
+    const osTag = document.getElementById('demo-os-tag');
+    if (osTag) {
+      if (plat.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) {
+        osTag.textContent = 'Host: macOS (Darwin)';
+      } else if (plat.includes('win') || ua.includes('windows')) {
+        osTag.textContent = 'Host: WSL2 (Windows)';
+      } else if (ua.includes('cachyos') || ua.includes('arch')) {
+        osTag.textContent = 'Host: CachyOS / Arch';
+      } else if (ua.includes('ubuntu') || ua.includes('debian')) {
+        osTag.textContent = 'Host: Ubuntu Linux';
+      } else {
+        osTag.textContent = 'Host: Linux / Unix';
+      }
+    }
+  } catch (e) {}
 </script>

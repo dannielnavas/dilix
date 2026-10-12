@@ -16,37 +16,95 @@ const icons: Record<string, string> = {
 };
 ---
 
-<section class="py-10 border-y border-slate-800/60 bg-[#070a12]/70 backdrop-blur-sm">
+<section class="py-12 border-y border-slate-800/80 bg-[#060911]/80 backdrop-blur-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-6">
-      <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-        {t.header}
+    <!-- Header with subtle rhythm -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-8">
+      <div>
+        <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider font-mono flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          {t.header}
+        </span>
+      </div>
+      <span class="text-xs text-slate-500 font-mono hidden sm:inline">
+        {lang === 'en' ? 'Click any OS to jump to tailored installer' : 'Haz clic en un SO para ir a su instalador'}
       </span>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {t.platforms.map((p) => (
-        <div class="relative group p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-indigo-500/40 hover:bg-slate-900/90 transition-all">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2.5">
-              <svg class="w-5 h-5 text-indigo-400 fill-current" viewBox="0 0 24 24" set:html={icons[p.name] || icons.Ubuntu} />
-              <h3 class="font-bold text-white text-base">{p.name}</h3>
+    <!-- Integrated Architecture Ribbon (Single unified segmented strip, no box soup) -->
+    <div class="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-800/80 rounded-2xl border border-slate-800/80 bg-[#080d17]/60 overflow-hidden">
+      {t.platforms.map((p) => {
+        const platformKey = p.name.toLowerCase();
+        return (
+          <div
+            data-os-platform={platformKey}
+            class="os-badge-item group p-5 hover:bg-slate-800/40 transition-all cursor-pointer relative"
+          >
+            <!-- Detected Badge Pill -->
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24" set:html={icons[p.name] || icons.Ubuntu} />
+                <h3 class="font-bold text-white text-base tracking-tight">{p.name}</h3>
+              </div>
+              <span class="os-detected-card-badge hidden font-mono text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                {lang === 'en' ? '● Detected' : '● Detectado'}
+              </span>
             </div>
-            <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
-              {p.flag}
-            </span>
-          </div>
 
-          <div class="text-xs font-medium text-cyan-300/90 mb-1.5 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-            {p.badge}
-          </div>
+            <div class="text-xs font-mono text-cyan-300/90 mb-2 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+              {p.badge}
+            </div>
 
-          <p class="text-xs text-slate-400 leading-relaxed">
-            {p.desc}
-          </p>
-        </div>
-      ))}
+            <p class="text-xs text-slate-400 leading-relaxed">
+              {p.desc}
+            </p>
+
+            <div class="mt-3 pt-3 border-t border-slate-800/40 flex items-center justify-between text-[11px] font-mono text-slate-500 group-hover:text-emerald-400 transition-colors">
+              <span>{p.flag}</span>
+              <span class="opacity-0 group-hover:opacity-100 transition-opacity">❯</span>
+            </div>
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>
+
+<script>
+  function detectOS() {
+    try {
+      const ua = (navigator.userAgent || '').toLowerCase();
+      const platform = (((navigator as any).userAgentData?.platform) || navigator.platform || '').toLowerCase();
+      if (platform.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) return 'macos';
+      if (platform.includes('win') || ua.includes('windows')) return 'wsl2';
+      if (platform.includes('linux') || ua.includes('linux') || ua.includes('x11')) {
+        if (ua.includes('cachyos') || ua.includes('arch') || ua.includes('manjaro') || ua.includes('endeavour')) return 'cachyos';
+        return 'ubuntu';
+      }
+    } catch (e) {}
+    return 'auto';
+  }
+
+  const detected = detectOS();
+  const items = document.querySelectorAll('.os-badge-item');
+
+  items.forEach(item => {
+    const plat = item.getAttribute('data-os-platform');
+    if (plat === detected) {
+      item.classList.add('bg-emerald-950/20');
+      const badge = item.querySelector('.os-detected-card-badge');
+      if (badge) badge.classList.remove('hidden');
+    }
+
+    item.addEventListener('click', () => {
+      if (plat) {
+        window.dispatchEvent(new CustomEvent('dilix-os-selected', { detail: { os: plat } }));
+        const installSection = document.getElementById('instalacion');
+        if (installSection) {
+          installSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>

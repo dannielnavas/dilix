@@ -9,10 +9,14 @@ const { lang = 'es' } = Astro.props;
 const t = translations[lang].faq;
 ---
 
-<section id="faq" class="py-24 relative overflow-hidden bg-[#070b13]">
+<section id="faq" class="py-24 relative overflow-hidden bg-[#060911]">
+  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <div class="absolute bottom-0 right-1/4 w-[500px] h-[300px] glow-cyan rounded-full blur-3xl pointer-events-none -z-10 opacity-20"></div>
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         {t.eyebrow}
       </div>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -23,25 +27,25 @@ const t = translations[lang].faq;
       </p>
     </div>
 
-    <!-- FAQ Accordion List -->
-    <div class="space-y-4">
+    <!-- Minimalist Accordion List (Dividers instead of nested boxes) -->
+    <div class="divide-y divide-slate-800/80 border-y border-slate-800/80">
       {t.items.map((faq, index) => (
-        <div class="faq-item rounded-2xl bg-slate-900/60 border border-slate-800 transition-all overflow-hidden">
+        <div class="faq-item group transition-colors">
           <button
             type="button"
-            class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-800/40 transition-colors"
+            class="faq-trigger w-full py-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:text-emerald-400 transition-colors"
             data-index={index}
           >
-            <span class="font-bold text-white text-base sm:text-lg">
+            <span class="font-bold text-white group-hover:text-emerald-300 text-base sm:text-lg transition-colors pr-2">
               {faq.q}
             </span>
-            <span class="faq-icon shrink-0 w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 transition-transform duration-300">
+            <span class="faq-icon shrink-0 w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:border-emerald-500/40 transition-all duration-300">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
             </span>
           </button>
-          <div class="faq-content hidden px-6 pb-5 pt-1 text-slate-300 text-sm leading-relaxed border-t border-slate-800/50">
+          <div class="faq-content hidden pb-6 text-slate-300 text-sm sm:text-base leading-relaxed">
             <p>{faq.a}</p>
           </div>
         </div>
@@ -64,14 +68,14 @@ const t = translations[lang].faq;
 
       // Close all others
       document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-      document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180'));
-      document.querySelectorAll('.faq-item').forEach(it => it.classList.remove('border-indigo-500/50', 'bg-slate-900/90'));
+      document.querySelectorAll('.faq-icon').forEach(i => {
+        i.classList.remove('rotate-180', 'text-emerald-400', 'border-emerald-500/40');
+      });
 
       // Toggle current
       if (!isOpen && content && icon) {
         content.classList.remove('hidden');
-        icon.classList.add('rotate-180');
-        parent.classList.add('border-indigo-500/50', 'bg-slate-900/90');
+        icon.classList.add('rotate-180', 'text-emerald-400', 'border-emerald-500/40');
       }
     });
   });

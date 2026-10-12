@@ -11,24 +11,29 @@ const langFlag = lang === 'en' ? '--en' : '--es';
 ---
 
 <section id="instalacion" class="py-24 relative overflow-hidden">
+  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-30"></div>
+
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-14">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         {t.eyebrow}
       </div>
       <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-        {t.title} <span class="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent">{t.titleGradient}</span>
+        {t.title} <span class="bg-gradient-to-r from-emerald-400 to-cyan-300 bg-clip-text text-transparent">{t.titleGradient}</span>
       </h2>
       <p class="mt-4 text-slate-400 text-base sm:text-lg">
         {t.subtitle}
       </p>
 
-      <!-- Main Method Toggle: Suite vs Plugin -->
-      <div class="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-inner">
+      <!-- Main Method Toggle: Suite vs Plugin (High contrast, clean switch) -->
+      <div class="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-900 border border-slate-800">
         <button
           type="button"
           id="btn-method-full"
-          class="method-toggle-btn active px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+          class="method-toggle-btn active px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20"
         >
           {t.btnFull}
         </button>
@@ -44,48 +49,68 @@ const langFlag = lang === 'en' ? '--en' : '--es';
 
     <!-- VIEW 1: METHOD 1 - SUITE COMPLETA -->
     <div id="view-method-full" class="space-y-8 max-w-5xl mx-auto">
-      <!-- OS Subtabs -->
+      <!-- Detected OS banner -->
+      <div id="os-detect-banner" class="hidden p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center flex items-center justify-center gap-2 max-w-2xl mx-auto font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span id="os-detect-banner-text">
+          {lang === 'en' ? 'Detected OS: Recommended command pre-selected for your system.' : 'Sistema detectado: Comando recomendado seleccionado automáticamente para tu equipo.'}
+        </span>
+      </div>
+
+      <!-- OS Subtabs (Clean horizontal pills) -->
       <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
         <button
           type="button"
           data-os-tab="auto"
-          class="os-tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-800 text-white border-indigo-500/50"
+          class="os-tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-800 text-white border border-emerald-500/50"
         >
           {t.tabAuto}
         </button>
         <button
           type="button"
           data-os-tab="macos"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
         >
-          {t.tabMacos}
+          <span>{t.tabMacos}</span>
+          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+            {lang === 'en' ? 'Your OS' : 'Tu SO'}
+          </span>
         </button>
         <button
           type="button"
           data-os-tab="cachyos"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
         >
-          {t.tabCachyos}
+          <span>{t.tabCachyos}</span>
+          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+            {lang === 'en' ? 'Your OS' : 'Tu SO'}
+          </span>
         </button>
         <button
           type="button"
           data-os-tab="ubuntu"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
         >
-          {t.tabUbuntu}
+          <span>{t.tabUbuntu}</span>
+          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+            {lang === 'en' ? 'Your OS' : 'Tu SO'}
+          </span>
         </button>
         <button
           type="button"
           data-os-tab="wsl2"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
         >
-          {t.tabWsl2}
+          <span>{t.tabWsl2}</span>
+          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+            {lang === 'en' ? 'Your OS' : 'Tu SO'}
+          </span>
         </button>
       </div>
 
       <!-- OS Command Terminal Display -->
-      <div class="rounded-2xl bg-[#090d16] border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div class="rounded-3xl bg-[#090d16] border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div>
             <h3 id="os-tab-title" class="text-xl font-bold text-white flex items-center gap-2">
               {lang === 'en' ? 'Automatic Cross-Platform Detection' : 'Detección Automática Multiplataforma'}
@@ -98,10 +123,10 @@ const langFlag = lang === 'en' ? '--en' : '--es';
             id="os-copy-cmd-btn"
             data-copied-text={t.copied}
             data-copy-text={t.copyBtn}
-            class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold text-xs tracking-wide transition-all shadow-md shrink-0 cursor-pointer"
+            class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs tracking-wide transition-all shadow-md shadow-emerald-500/20 shrink-0 cursor-pointer"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
             </svg>
             <span id="os-copy-feedback">{t.copyBtn}</span>
           </button>
@@ -112,43 +137,31 @@ const langFlag = lang === 'en' ? '--en' : '--es';
           <code id="os-tab-code">git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles &amp;&amp; cd ~/dotfiles &amp;&amp; ./install.sh</code>
         </div>
 
-        <!-- What happens breakdown (4 pillars) -->
+        <!-- What happens breakdown (Streamlined 4-stage progression, no nested box soup) -->
         <div class="pt-4 border-t border-slate-800/80">
-          <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">
+          <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-5 font-mono">
             {t.whatHappensTitle}
           </h4>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="font-bold text-cyan-300 flex items-center gap-1.5">
-                <span>🔍</span> {t.step1Title}
-              </div>
-              <p class="text-slate-400">
-                {t.step1Desc}
-              </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
+              <span class="text-cyan-400 font-mono font-bold text-[11px] block">01 • RECON</span>
+              <div class="font-bold text-white text-sm">{t.step1Title}</div>
+              <p class="text-slate-400 leading-relaxed">{t.step1Desc}</p>
             </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="font-bold text-indigo-300 flex items-center gap-1.5">
-                <span>📦</span> {t.step2Title}
-              </div>
-              <p class="text-slate-400">
-                {t.step2Desc}
-              </p>
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
+              <span class="text-teal-300 font-mono font-bold text-[11px] block">02 • TOOLCHAIN</span>
+              <div class="font-bold text-white text-sm">{t.step2Title}</div>
+              <p class="text-slate-400 leading-relaxed">{t.step2Desc}</p>
             </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="font-bold text-emerald-300 flex items-center gap-1.5">
-                <span>🧠</span> {t.step3Title}
-              </div>
-              <p class="text-slate-400">
-                {t.step3Desc}
-              </p>
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
+              <span class="text-emerald-400 font-mono font-bold text-[11px] block">03 • LOCAL AI</span>
+              <div class="font-bold text-white text-sm">{t.step3Title}</div>
+              <p class="text-slate-400 leading-relaxed">{t.step3Desc}</p>
             </div>
-            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
-              <div class="font-bold text-purple-300 flex items-center gap-1.5">
-                <span>🔗</span> {t.step4Title}
-              </div>
-              <p class="text-slate-400">
-                {t.step4Desc}
-              </p>
+            <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
+              <span class="text-amber-400 font-mono font-bold text-[11px] block">04 • SYMLINKS</span>
+              <div class="font-bold text-white text-sm">{t.step4Title}</div>
+              <p class="text-slate-400 leading-relaxed">{t.step4Desc}</p>
             </div>
           </div>
         </div>
@@ -157,7 +170,7 @@ const langFlag = lang === 'en' ? '--en' : '--es';
 
     <!-- VIEW 2: METHOD 2 - SOLO PLUGIN ZSH -->
     <div id="view-method-plugin" class="hidden space-y-8 max-w-5xl mx-auto">
-      <div class="p-6 sm:p-8 rounded-2xl bg-[#090d16] border border-slate-800 shadow-2xl space-y-8">
+      <div class="p-6 sm:p-8 rounded-3xl bg-[#090d16] border border-slate-800 shadow-2xl space-y-8">
         <div>
           <h3 class="text-2xl font-bold text-white">
             {t.pluginTitle}
@@ -168,48 +181,48 @@ const langFlag = lang === 'en' ? '--en' : '--es';
         </div>
 
         <!-- Subtabs: Oh-My-Zsh vs Zinit -->
-        <div class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Option A: Oh-My-Zsh -->
-          <div class="p-5 rounded-xl bg-[#050811] border border-slate-800 space-y-4">
+          <div class="p-5 rounded-2xl bg-[#050811] border border-slate-800/90 space-y-4">
             <div class="flex items-center justify-between">
-              <h4 class="font-bold text-cyan-300 text-sm flex items-center gap-2">
+              <h4 class="font-bold text-emerald-400 text-sm flex items-center gap-2 font-mono">
                 <span>⚡</span> {t.omzTitle}
               </h4>
               <button
-                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
                 data-copy-target="omz-cmd"
                 data-copied-text={t.copied}
               >
                 {t.copyBtn}
               </button>
             </div>
-            <pre class="font-mono text-xs text-emerald-400 overflow-x-auto p-3 rounded-lg bg-black/40"><code id="omz-cmd">git clone https://github.com/dannielnavas/dotfiles.git /tmp/dotfiles-temp &amp;&amp; \
+            <pre class="font-mono text-xs text-emerald-300 overflow-x-auto p-3 rounded-xl bg-black/50 border border-slate-900"><code id="omz-cmd">git clone https://github.com/dannielnavas/dotfiles.git /tmp/dotfiles-temp &amp;&amp; \
 mkdir -p "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/dilix" &amp;&amp; \
 cp -r /tmp/dotfiles-temp/zsh/plugins/dilix/* "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/dilix/" &amp;&amp; \
 rm -rf /tmp/dotfiles-temp</code></pre>
             <p class="text-xs text-slate-400">
               {t.omzDesc}
             </p>
-            <div class="p-2.5 rounded bg-black/40 border border-slate-800 font-mono text-xs text-indigo-300">
+            <div class="p-2.5 rounded-lg bg-black/40 border border-slate-800 font-mono text-xs text-cyan-300">
               plugins=(... dilix)
             </div>
           </div>
 
           <!-- Option B: Zinit -->
-          <div class="p-5 rounded-xl bg-[#050811] border border-slate-800 space-y-4">
+          <div class="p-5 rounded-2xl bg-[#050811] border border-slate-800/90 space-y-4">
             <div class="flex items-center justify-between">
-              <h4 class="font-bold text-indigo-300 text-sm flex items-center gap-2">
+              <h4 class="font-bold text-cyan-400 text-sm flex items-center gap-2 font-mono">
                 <span>🚀</span> {t.zinitTitle}
               </h4>
               <button
-                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
                 data-copy-target="zinit-cmd"
                 data-copied-text={t.copied}
               >
                 {t.copyBtn}
               </button>
             </div>
-            <pre class="font-mono text-xs text-emerald-400 overflow-x-auto p-3 rounded-lg bg-black/40"><code id="zinit-cmd">zinit ice wait"0" lucid
+            <pre class="font-mono text-xs text-emerald-300 overflow-x-auto p-3 rounded-xl bg-black/50 border border-slate-900"><code id="zinit-cmd">zinit ice wait"0" lucid
 zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/plugins/dilix/dilix.plugin.zsh</code></pre>
             <p class="text-xs text-slate-400">
               {t.zinitDesc}
@@ -230,9 +243,9 @@ zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/p
 
   if (btnMethodFull && btnMethodPlugin && viewMethodFull && viewMethodPlugin) {
     btnMethodFull.addEventListener('click', () => {
-      btnMethodFull.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodFull.classList.add('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
       btnMethodFull.classList.remove('text-slate-400');
-      btnMethodPlugin.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodPlugin.classList.remove('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
       btnMethodPlugin.classList.add('text-slate-400');
 
       viewMethodFull.classList.remove('hidden');
@@ -240,9 +253,9 @@ zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/p
     });
 
     btnMethodPlugin.addEventListener('click', () => {
-      btnMethodPlugin.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodPlugin.classList.add('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
       btnMethodPlugin.classList.remove('text-slate-400');
-      btnMethodFull.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodFull.classList.remove('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
       btnMethodFull.classList.add('text-slate-400');
 
       viewMethodPlugin.classList.remove('hidden');
@@ -285,21 +298,84 @@ zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/p
   const osCode = document.getElementById('os-tab-code');
   const osCopyBtn = document.getElementById('os-copy-cmd-btn');
   const osCopyFeedback = document.getElementById('os-copy-feedback');
+  const osDetectBanner = document.getElementById('os-detect-banner');
+  const osDetectBannerText = document.getElementById('os-detect-banner-text');
+
+  function activateOsTab(osKey, isDetected = false) {
+    const data = osData[osKey] || osData.auto;
+
+    osTabs.forEach(btn => {
+      const key = btn.getAttribute('data-os-tab');
+      const recBadge = btn.querySelector('.os-rec-badge');
+      if (key === osKey) {
+        btn.classList.add('bg-slate-800', 'text-white', 'border-emerald-500/50');
+        btn.classList.remove('bg-slate-900/80', 'text-slate-400', 'border-transparent');
+        if (isDetected && recBadge) recBadge.classList.remove('hidden');
+      } else {
+        btn.classList.remove('bg-slate-800', 'text-white', 'border-emerald-500/50');
+        btn.classList.add('bg-slate-900/80', 'text-slate-400', 'border-transparent');
+        if (recBadge && !isDetected) recBadge.classList.add('hidden');
+      }
+    });
+
+    if (osTitle) {
+      osTitle.textContent = isDetected ? `${data.title} (${lang === 'en' ? 'Recommended for you' : 'Recomendado para ti'})` : data.title;
+    }
+    if (osDesc) osDesc.textContent = data.desc;
+    if (osCode) osCode.textContent = data.code;
+
+    if (isDetected && osDetectBanner && osDetectBannerText) {
+      osDetectBanner.classList.remove('hidden');
+      osDetectBannerText.textContent = lang === 'en'
+        ? `We detected your OS: ${osKey.toUpperCase()}. The recommended installation command has been pre-selected.`
+        : `Detectamos tu sistema: ${osKey.toUpperCase()}. El comando recomendado ha sido preseleccionado para tu equipo.`;
+    }
+  }
+
+  // OS detection
+  function detectOS() {
+    try {
+      const ua = (navigator.userAgent || '').toLowerCase();
+      const platform = (((navigator).userAgentData && (navigator).userAgentData.platform) || navigator.platform || '').toLowerCase();
+
+      if (platform.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) {
+        return 'macos';
+      }
+      if (platform.includes('win') || ua.includes('windows')) {
+        return 'wsl2';
+      }
+      if (platform.includes('linux') || ua.includes('linux') || ua.includes('x11')) {
+        if (ua.includes('cachyos') || ua.includes('arch') || ua.includes('manjaro') || ua.includes('endeavour')) {
+          return 'cachyos';
+        }
+        return 'ubuntu';
+      }
+    } catch (e) {
+      console.warn('OS detection fallback', e);
+    }
+    return 'auto';
+  }
+
+  // Auto-select detected OS on load
+  const detectedOs = detectOS();
+  if (detectedOs && detectedOs !== 'auto' && osData[detectedOs]) {
+    activateOsTab(detectedOs, true);
+  }
+
+  // Listen to changes triggered from Hero or OsBadges
+  window.addEventListener('dilix-os-selected', (e) => {
+    const customEvt = e;
+    const targetOs = customEvt.detail?.os;
+    if (targetOs && osData[targetOs]) {
+      activateOsTab(targetOs, false);
+    }
+  });
 
   osTabs.forEach(btn => {
     btn.addEventListener('click', () => {
-      osTabs.forEach(b => {
-        b.classList.remove('bg-slate-800', 'text-white', 'border-indigo-500/50');
-        b.classList.add('bg-slate-900', 'text-slate-400', 'border-slate-800');
-      });
-      btn.classList.add('bg-slate-800', 'text-white', 'border-indigo-500/50');
-      btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800');
-
       const osKey = btn.getAttribute('data-os-tab');
       if (osKey && osData[osKey]) {
-        if (osTitle) osTitle.textContent = osData[osKey].title;
-        if (osDesc) osDesc.textContent = osData[osKey].desc;
-        if (osCode) osCode.textContent = osData[osKey].code;
+        activateOsTab(osKey, false);
       }
     });
   });
@@ -312,8 +388,10 @@ zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/p
       try {
         await navigator.clipboard.writeText(osCode.innerText.trim());
         osCopyFeedback.textContent = copiedText;
+        osCopyBtn.classList.add('bg-emerald-400');
         setTimeout(() => {
           osCopyFeedback.textContent = copyText;
+          osCopyBtn.classList.remove('bg-emerald-400');
         }, 2000);
       } catch (err) {
         console.error('Error al copiar:', err);

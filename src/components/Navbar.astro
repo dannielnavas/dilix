@@ -10,19 +10,19 @@ const t = translations[lang].nav;
 const homeHref = lang === 'en' ? '/en' : '/';
 ---
 
-<header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#090d16]/80 border-b border-slate-800/80 transition-all">
+<header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#080c14]/85 border-b border-slate-800/80 transition-all">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Brand Logo -->
     <a href={homeHref} class="flex items-center gap-3 group">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-shadow">
-        <div class="w-full h-full bg-[#090d16] rounded-[11px] flex items-center justify-center">
-          <span class="text-cyan-400 font-mono font-black text-lg group-hover:scale-110 transition-transform">&gt;_</span>
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-400 p-[1px] shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-shadow">
+        <div class="w-full h-full bg-[#080c14] rounded-[11px] flex items-center justify-center">
+          <span class="text-emerald-400 font-mono font-black text-lg group-hover:scale-110 transition-transform">&gt;_</span>
         </div>
       </div>
       <div class="flex flex-col">
         <span class="text-white font-bold text-lg tracking-tight flex items-center gap-1.5">
           Dilix
-          <span class="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AI Dotfiles</span>
+          <span class="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">AI Dotfiles</span>
         </span>
       </div>
     </a>
@@ -42,7 +42,7 @@ const homeHref = lang === 'en' ? '/en' : '/';
         <a
           href="/"
           data-set-lang="es"
-          class={`px-2 py-1 rounded-md transition-all ${lang === 'es' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white'}`}
+          class={`px-2 py-1 rounded-md transition-all ${lang === 'es' ? 'bg-emerald-500 text-slate-950 font-bold shadow-sm' : 'text-slate-400 hover:text-white'}`}
           title="Español"
         >
           ES
@@ -50,7 +50,7 @@ const homeHref = lang === 'en' ? '/en' : '/';
         <a
           href="/en"
           data-set-lang="en"
-          class={`px-2 py-1 rounded-md transition-all ${lang === 'en' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white'}`}
+          class={`px-2 py-1 rounded-md transition-all ${lang === 'en' ? 'bg-emerald-500 text-slate-950 font-bold shadow-sm' : 'text-slate-400 hover:text-white'}`}
           title="English"
         >
           EN
@@ -72,14 +72,14 @@ const homeHref = lang === 'en' ? '/en' : '/';
         <span class="text-slate-400">{t.starGitHub}</span>
       </a>
 
-      <!-- Install CTA -->
+      <!-- Install CTA (Clear, high conversion) -->
       <a
         href="#instalacion"
-        class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:from-indigo-400 transition-all shadow-md shadow-indigo-600/30"
+        class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold text-slate-950 bg-emerald-500 hover:bg-emerald-400 transition-all shadow-md shadow-emerald-500/25 active:scale-95"
       >
         <span>{t.installNow}</span>
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
         </svg>
       </a>
     </div>
@@ -87,7 +87,6 @@ const homeHref = lang === 'en' ? '/en' : '/';
 </header>
 
 <script>
-  // Persist language selection when user clicks ES or EN
   const langLinks = document.querySelectorAll('[data-set-lang]');
   langLinks.forEach(link => {
     link.addEventListener('click', () => {

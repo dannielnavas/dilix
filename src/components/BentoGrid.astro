@@ -10,150 +10,216 @@ const t = translations[lang].bento;
 ---
 
 <section id="caracteristicas" class="py-24 relative overflow-hidden">
-  <!-- Ambient background glow -->
-  <div class="absolute bottom-10 left-10 w-[500px] h-[400px] glow-purple rounded-full blur-3xl pointer-events-none -z-10 opacity-50"></div>
+  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <div class="absolute top-1/4 -left-20 w-[600px] h-[500px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-40"></div>
+  <div class="absolute bottom-10 right-0 w-[500px] h-[400px] glow-cyan rounded-full blur-3xl pointer-events-none -z-10 opacity-30"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-4">
+    <!-- Section Header (Clean Typographic Rhythm) -->
+    <div class="max-w-3xl mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
         {t.eyebrow}
       </div>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-        {t.title} <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">{t.titleGradient}</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        {t.title} <span class="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">{t.titleGradient}</span>
       </h2>
-      <p class="mt-4 text-slate-400 text-base sm:text-lg">
+      <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
         {t.subtitle}
       </p>
     </div>
 
-    <!-- Bento Grid Layout -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <!-- Editorial Showcase Layout (Eliminating box soup / container fatigue) -->
+    <div class="space-y-12">
       
-      <!-- Card 01: Dilix Copilot (Destacada - 8 cols on md) -->
-      <div class="md:col-span-12 lg:col-span-8 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#111625] to-[#0c101c] border border-indigo-500/30 hover:border-indigo-500/60 shadow-xl relative overflow-hidden group transition-all">
-        <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all"></div>
+      <!-- Feature 01: Dilix Copilot Local AI (Hero Split Layout) -->
+      <div class="rounded-3xl bg-gradient-to-b from-[#0e1424] to-[#0a0e1a] border border-slate-800/90 p-6 sm:p-10 lg:p-12 shadow-2xl overflow-hidden relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <!-- Text column -->
+          <div class="lg:col-span-5 space-y-5">
+            <div class="flex items-center gap-3">
+              <span class="text-xs font-mono font-bold text-emerald-400 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                {t.c1.tag}
+              </span>
+              <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> {t.c1.status}
+              </span>
+            </div>
+
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              {t.c1.title}
+            </h3>
+
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              {t.c1.desc}
+            </p>
+
+            <!-- Key Benefits Checklist (Clean typographic layout, no nested boxes) -->
+            <ul class="space-y-2.5 pt-2 text-xs sm:text-sm text-slate-300 font-mono">
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>{lang === 'en' ? 'Ollama runtime with qwen2.5-coder:1.5b (< 2GB RAM)' : 'Motor Ollama con qwen2.5-coder:1.5b (< 2GB RAM)'}</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>{lang === 'en' ? 'Zero cloud telemetry: 100% private IPC communication' : 'Cero telemetría: Comunicación IPC 100% en tu máquina'}</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>{lang === 'en' ? 'Under 250ms latency on Apple Silicon & Intel/AMD' : 'Latencia menor a 250ms en Apple Silicon e Intel/AMD'}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Media column: Real terminal recording -->
+          <div class="lg:col-span-7">
+            <div class="rounded-2xl overflow-hidden border border-slate-800 bg-[#16161e] shadow-2xl">
+              <div class="bg-[#1a1b26] px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+                  <span class="ml-2 text-slate-300">dilix explain</span>
+                </div>
+                <span class="text-emerald-400 text-[11px]">Tokyo Night</span>
+              </div>
+              <img
+                src={`/${lang}/feature-explain.gif`}
+                alt={lang === 'en' ? 'Dilix code and command explanation real terminal recording' : 'Grabación real de explicación de código y comandos con Dilix'}
+                class="w-full h-auto block select-none"
+                loading="lazy"
+                width="1200"
+                height="680"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 02 & 03: Two Balanced Pillars (Autodiagnóstico & Centro de Control) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-mono font-bold text-indigo-400 px-2.5 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20">
-            {t.c1.tag}
-          </span>
-          <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> {t.c1.status}
-          </span>
-        </div>
+        <!-- Pillar 02: Autodiagnóstico -->
+        <div class="rounded-3xl bg-[#0b0f1a] border border-slate-800/80 p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 transition-colors">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-cyan-400 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">
+                {t.c2.tag}
+              </span>
+              <kbd class="px-2.5 py-1 text-xs font-mono bg-slate-800 text-emerald-300 rounded-md border border-emerald-500/30 shadow-sm font-semibold">Ctrl + G</kbd>
+            </div>
 
-        <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
-          {t.c1.title}
-        </h3>
+            <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              {t.c2.title}
+            </h3>
 
-        <p class="mt-3 text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-          {t.c1.desc}
-        </p>
-
-        <!-- Visual simulation inside card -->
-        <div class="mt-6 p-4 rounded-xl bg-[#070b14] border border-slate-800 font-mono text-xs text-slate-300 space-y-2">
-          <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-slate-800 pb-2">
-            <span>{t.c1.engine}</span>
-            <span class="text-cyan-400">{t.c1.ram}</span>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              {t.c2.desc}
+            </p>
           </div>
-          <div class="text-indigo-300">{t.c1.query}</div>
-          <div class="text-slate-400 pl-2 border-l-2 border-indigo-500/50 text-[11px] py-1">
-            {t.c1.output}
+
+          <div class="mt-6 rounded-2xl overflow-hidden border border-slate-800/80 bg-[#16161e] shadow-lg">
+            <img
+              src={`/${lang}/feature-fix.gif`}
+              alt={lang === 'en' ? 'Dilix error auto-diagnosis real terminal recording' : 'Grabación real de autodiagnóstico de error en terminal con Dilix'}
+              class="w-full h-auto block select-none"
+              loading="lazy"
+              width="1200"
+              height="680"
+            />
+          </div>
+        </div>
+
+        <!-- Pillar 03: Centro de Control dilix menu -->
+        <div class="rounded-3xl bg-[#0b0f1a] border border-slate-800/80 p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 transition-colors">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-cyan-400 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">
+                {t.c3.tag}
+              </span>
+              <kbd class="px-2.5 py-1 text-xs font-mono bg-slate-800 text-cyan-300 rounded-md border border-cyan-500/30 shadow-sm font-semibold">dilix menu</kbd>
+            </div>
+
+            <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              {t.c3.title}
+            </h3>
+
+            <p class="text-slate-300 text-sm leading-relaxed">
+              {t.c3.desc}
+            </p>
+          </div>
+
+          <div class="mt-6 rounded-2xl overflow-hidden border border-slate-800/80 bg-[#16161e] shadow-lg">
+            <img
+              src={`/${lang}/feature-menu.gif`}
+              alt={lang === 'en' ? 'Dilix interactive CLI menu real terminal recording' : 'Grabación real del centro de control dilix menu'}
+              class="w-full h-auto block select-none"
+              loading="lazy"
+              width="1200"
+              height="680"
+            />
           </div>
         </div>
       </div>
 
-      <!-- Card 02: Autodiagnóstico con Ctrl + G (4 cols on lg) -->
-      <div class="md:col-span-6 lg:col-span-4 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#111625] to-[#0c101c] border border-slate-800 hover:border-cyan-500/40 shadow-xl relative overflow-hidden group transition-all">
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-mono font-bold text-cyan-400 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">
-            {t.c2.tag}
-          </span>
-          <kbd class="px-2 py-0.5 text-xs font-mono bg-slate-800 text-slate-300 rounded border border-slate-700 shadow-sm">Ctrl + G</kbd>
+      <!-- Features 04, 05, 06: Triad of Engineering Excellence (Open layout, not box-inside-box) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+        
+        <!-- 04: Visual Aesthetics -->
+        <div class="p-6 rounded-2xl bg-[#080d17]/60 border border-slate-800/80 hover:border-slate-700 transition-colors space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-cyan-400 font-semibold">{t.c4.tag}</span>
+            <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400"></span> Tokyo Night
+            </span>
+          </div>
+          <h4 class="text-lg font-bold text-white tracking-tight">{t.c4.title}</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{t.c4.desc}</p>
+          <div class="pt-2 text-xs font-mono text-slate-500 flex items-center gap-2">
+            <span>✨ WezTerm GPU</span>
+            <span>•</span>
+            <span>🚀 Starship Prompt</span>
+          </div>
         </div>
 
-        <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          {t.c2.title}
-        </h3>
-
-        <p class="mt-3 text-slate-300 text-xs sm:text-sm leading-relaxed">
-          {t.c2.desc}
-        </p>
-
-        <div class="mt-5 p-3 rounded-xl bg-[#070b14] border border-rose-500/20 text-xs font-mono space-y-1.5">
-          <div class="text-rose-400">✗ git push -> Permission denied (publickey)</div>
-          <div class="text-emerald-400 text-[11px]">✓ fix: ssh-add ~/.ssh/id_ed25519</div>
-        </div>
-      </div>
-
-      <!-- Card 03: Estética Visual Premium (4 cols on lg) -->
-      <div class="md:col-span-6 lg:col-span-4 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#111625] to-[#0c101c] border border-slate-800 hover:border-purple-500/40 shadow-xl relative overflow-hidden group transition-all">
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-mono font-bold text-purple-400 px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/20">
-            {t.c3.tag}
-          </span>
+        <!-- 05: Native Interop -->
+        <div class="p-6 rounded-2xl bg-[#080d17]/60 border border-slate-800/80 hover:border-slate-700 transition-colors space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-emerald-400 font-semibold">{t.c5.tag}</span>
+            <span class="text-xs font-mono text-slate-400">4-in-1 Native</span>
+          </div>
+          <h4 class="text-lg font-bold text-white tracking-tight">{t.c5.title}</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{t.c5.desc}</p>
+          <div class="pt-2 text-xs font-mono text-slate-500 flex flex-wrap gap-2">
+            <span class="text-emerald-400">brew</span>
+            <span>•</span>
+            <span class="text-cyan-400">pacman/paru</span>
+            <span>•</span>
+            <span class="text-slate-300">apt</span>
+            <span>•</span>
+            <span class="text-amber-400">WSL2</span>
+          </div>
         </div>
 
-        <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          {t.c3.title}
-        </h3>
-
-        <p class="mt-3 text-slate-300 text-xs sm:text-sm leading-relaxed">
-          {t.c3.desc}
-        </p>
-
-        <div class="mt-5 flex items-center gap-2 text-xs font-mono">
-          <span class="px-2 py-1 rounded bg-slate-800/80 text-purple-300 border border-slate-700">Tokyo Night</span>
-          <span class="px-2 py-1 rounded bg-slate-800/80 text-cyan-300 border border-slate-700">Starship v1.21</span>
-          <span class="px-2 py-1 rounded bg-slate-800/80 text-emerald-300 border border-slate-700">Nerd Fonts</span>
-        </div>
-      </div>
-
-      <!-- Card 04: Soporte Nativo 4 en 1 (4 cols on lg) -->
-      <div class="md:col-span-6 lg:col-span-4 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#111625] to-[#0c101c] border border-slate-800 hover:border-amber-500/40 shadow-xl relative overflow-hidden group transition-all">
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-mono font-bold text-amber-400 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/20">
-            {t.c4.tag}
-          </span>
+        <!-- 06: Modular Zsh -->
+        <div class="p-6 rounded-2xl bg-[#080d17]/60 border border-slate-800/80 hover:border-slate-700 transition-colors space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-emerald-400 font-semibold">{t.c6.tag}</span>
+            <span class="text-xs font-mono text-slate-400">Zero Startup Lag</span>
+          </div>
+          <h4 class="text-lg font-bold text-white tracking-tight">{t.c6.title}</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{t.c6.desc}</p>
+          <div class="pt-2 text-xs font-mono text-emerald-400/90 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
+            <code>plugins=(... dilix)</code>
+          </div>
         </div>
 
-        <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          {t.c4.title}
-        </h3>
-
-        <p class="mt-3 text-slate-300 text-xs sm:text-sm leading-relaxed">
-          {t.c4.desc}
-        </p>
-
-        <div class="mt-5 grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-400">
-          <div class="p-2 rounded bg-[#070b14] border border-slate-800 text-center">macOS • Homebrew</div>
-          <div class="p-2 rounded bg-[#070b14] border border-slate-800 text-center">CachyOS • AUR/Paru</div>
-          <div class="p-2 rounded bg-[#070b14] border border-slate-800 text-center">Ubuntu • APT/PPA</div>
-          <div class="p-2 rounded bg-[#070b14] border border-slate-800 text-center">WSL2 • WinBridge</div>
-        </div>
-      </div>
-
-      <!-- Card 05: Arquitectura Modular Zsh (4 cols on lg) -->
-      <div class="md:col-span-6 lg:col-span-4 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-[#111625] to-[#0c101c] border border-slate-800 hover:border-emerald-500/40 shadow-xl relative overflow-hidden group transition-all">
-        <div class="flex items-center justify-between mb-4">
-          <span class="text-xs font-mono font-bold text-emerald-400 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20">
-            {t.c5.tag}
-          </span>
-        </div>
-
-        <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-          {t.c5.title}
-        </h3>
-
-        <p class="mt-3 text-slate-300 text-xs sm:text-sm leading-relaxed">
-          {t.c5.desc}
-        </p>
-
-        <div class="mt-5 p-2.5 rounded-xl bg-[#070b14] border border-slate-800 font-mono text-[11px] text-slate-300">
-          <span class="text-slate-500"># Easy integration:</span><br/>
-          <span class="text-emerald-400">plugins=(... dilix)</span>
-        </div>
       </div>
 
     </div>

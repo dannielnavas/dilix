@@ -1,0 +1,105 @@
+---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = translations[lang].conversionCta;
+const oneLinerCommand = "git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh";
+---
+
+<section class="py-24 relative overflow-hidden bg-gradient-to-b from-[#090d16] via-[#0b101c] to-[#060911]">
+  <!-- Subtle ambient glow in background -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-70"></div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <!-- Eyebrow Pill -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+      {t.eyebrow}
+    </div>
+
+    <!-- Main Heading -->
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-3xl mx-auto leading-tight">
+      {t.title}
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="mt-4 text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+      {t.subtitle}
+    </p>
+
+    <!-- Unified Command Launcher -->
+    <div class="mt-10 max-w-2xl mx-auto">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#0d1322] rounded-2xl p-2.5 sm:p-3 border border-slate-800 shadow-2xl">
+        <div class="flex items-center gap-3 px-3 py-1.5 overflow-x-auto scrollbar-none text-left">
+          <span class="text-emerald-400 font-mono font-bold select-none text-base">$</span>
+          <span class="font-mono text-xs sm:text-sm text-slate-200 select-all whitespace-nowrap">
+            {oneLinerCommand}
+          </span>
+        </div>
+
+        <button
+          id="conversion-copy-btn"
+          data-clipboard={oneLinerCommand}
+          data-copied-text={t.copied}
+          data-default-text={t.btnCopy}
+          class="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition-all shadow-lg shadow-emerald-500/20 shrink-0 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          <span id="conversion-copy-label">{t.btnCopy}</span>
+        </button>
+      </div>
+
+      <!-- Secondary action & Trust Badges -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs">
+        <a
+          href="https://github.com/dannielnavas/dotfiles"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors font-medium"
+        >
+          <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          {t.starOnGithub}
+        </a>
+
+        <span class="text-slate-500 hidden sm:inline">•</span>
+
+        <span class="text-slate-400 text-xs">
+          {t.guarantee}
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const copyBtn = document.getElementById('conversion-copy-btn');
+  const copyLabel = document.getElementById('conversion-copy-label');
+
+  if (copyBtn && copyLabel) {
+    copyBtn.addEventListener('click', async () => {
+      const text = copyBtn.getAttribute('data-clipboard') || '';
+      const copiedText = copyBtn.getAttribute('data-copied-text') || '✓ Copiado';
+      const defaultText = copyBtn.getAttribute('data-default-text') || 'Copiar e Instalar';
+      try {
+        await navigator.clipboard.writeText(text);
+        copyLabel.textContent = copiedText;
+        copyBtn.classList.add('bg-emerald-400', 'text-slate-950');
+
+        setTimeout(() => {
+          copyLabel.textContent = defaultText;
+          copyBtn.classList.remove('bg-emerald-400');
+        }, 2500);
+      } catch (e) {
+        console.error('Clipboard error', e);
+      }
+    });
+  }
+</script>
