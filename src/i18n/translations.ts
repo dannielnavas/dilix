@@ -5,6 +5,13 @@ export const translations = {
     seo: {
       title: "Dilix — La Suite Definitiva de Terminal con IA Local & Dotfiles",
       description: "Stack moderno preconfigurado con WezTerm GPU, Starship, Zsh modular y Dilix (asistente de IA local con Ollama, sin costo de tokens ni telemetría). Listo en 1 comando para macOS, CachyOS, Ubuntu y WSL2.",
+      keywords: "dotfiles, terminal, wezterm, starship, zsh, ollama, ia local, local ai, asistente terminal, ai copilot, linux, macos, wsl2, cachyos, ubuntu, zsh plugins, herramientas desarrollador, terminal gpu, dotfiles con ia, privacidad local, zero telemetry",
+      ogTitle: "Dilix — Tu Terminal Elevada a la Máxima Potencia con IA Local",
+      ogDescription: "WezTerm GPU, Starship minimalista, Zsh modular y Dilix: asistente de IA local con Ollama sin costo de tokens ni telemetría. Instalación en 1 comando.",
+      imageAlt: "Vista previa de la terminal Dilix con asistente de IA local ejecutando en macOS y Linux",
+      locale: "es_ES",
+      localeAlternate: "en_US",
+      siteName: "Dilix",
     },
     nav: {
       features: "Características",
@@ -200,6 +207,13 @@ export const translations = {
     seo: {
       title: "Dilix — The Ultimate Terminal Suite with Local AI & Dotfiles",
       description: "A modern preconfigured stack with GPU-accelerated WezTerm, Starship, modular Zsh, and Dilix (local AI assistant powered by Ollama with zero token cost or telemetry). Ready in 1 command for macOS, CachyOS, Ubuntu, and WSL2.",
+      keywords: "dotfiles, terminal suite, wezterm, starship prompt, zsh, ollama, local ai copilot, offline ai, developer terminal, macos terminal, cachyos, ubuntu, wsl2, terminal ai assistant, zero telemetry, developer tools, gpu accelerated terminal",
+      ogTitle: "Dilix — Supercharge Your Terminal with Local AI & GPU Power",
+      ogDescription: "GPU-accelerated WezTerm, Starship prompt, modular Zsh, and Dilix: local AI assistant powered by Ollama with zero token costs and zero telemetry. Ready in 1 command.",
+      imageAlt: "Preview of Dilix Tokyo Night terminal suite featuring local AI copilot running on macOS and Linux",
+      locale: "en_US",
+      localeAlternate: "es_ES",
+      siteName: "Dilix",
     },
     nav: {
       features: "Features",

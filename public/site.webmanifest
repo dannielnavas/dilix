@@ -1,0 +1,21 @@
+{
+  "name": "Dilix — Ultimate Terminal Suite with Local AI",
+  "short_name": "Dilix",
+  "description": "GPU-accelerated terminal stack with WezTerm, Starship, modular Zsh, and Dilix local AI copilot with Ollama.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070b13",
+  "theme_color": "#070b13",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}

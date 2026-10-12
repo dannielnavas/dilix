@@ -1,13 +1,16 @@
-  // @ts-check
-  import { defineConfig } from 'astro/config';
-  import tailwindcss from '@tailwindcss/vite';
+// @ts-check
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
-  // https://astro.build/config
-  export default defineConfig({
-    i18n: {
-      defaultLocale: 'es',
-      locales: ['es', 'en'],
-      routing: {
+// https://astro.build/config
+export default defineConfig({
+  site: 'https://dilix.danniel.dev',
+  integrations: [sitemap()],
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
       prefixDefaultLocale: false,
     },
   },
@@ -15,3 +18,4 @@
     plugins: [tailwindcss()],
   },
 });
+

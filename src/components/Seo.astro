@@ -1,0 +1,164 @@
+---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { lang, title: customTitle, description: customDescription, image: customImage } = Astro.props;
+
+const seoData = translations[lang].seo;
+const title = customTitle || seoData.title;
+const description = customDescription || seoData.description;
+const keywords = seoData.keywords;
+const ogTitle = seoData.ogTitle;
+const ogDescription = seoData.ogDescription;
+const imageAlt = seoData.imageAlt;
+const locale = seoData.locale;
+const alternateLocale = seoData.localeAlternate;
+const siteName = seoData.siteName;
+
+const siteUrl = 'https://dilix.danniel.dev';
+const canonicalUrl = lang === 'es' ? `${siteUrl}/` : `${siteUrl}/en/`;
+const esUrl = `${siteUrl}/`;
+const enUrl = `${siteUrl}/en/`;
+
+// Image paths using available images in the project
+const pngImageRelative = customImage || `/${lang}/og-image.png`;
+const gifImageRelative = `/${lang}/hero-ask.gif`;
+
+const ogPngImageUrl = new URL(pngImageRelative, siteUrl).toString();
+const ogGifImageUrl = new URL(gifImageRelative, siteUrl).toString();
+
+// Structured data for Google & rich snippets
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": "Dilix",
+      "description": description,
+      "inLanguage": [locale, alternateLocale],
+      "publisher": {
+        "@type": "Person",
+        "name": "Danniel Navas",
+        "url": "https://github.com/dannielnavas"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": `${canonicalUrl}#software`,
+      "name": "Dilix",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS (Apple Silicon & Intel), Linux (CachyOS, Arch Linux, Ubuntu, Debian), Windows (WSL2)",
+      "description": description,
+      "url": canonicalUrl,
+      "image": ogPngImageUrl,
+      "screenshot": [
+        `${siteUrl}/${lang}/hero-ask.gif`,
+        `${siteUrl}/${lang}/feature-terminal.gif`,
+        `${siteUrl}/${lang}/feature-explain.gif`,
+        `${siteUrl}/${lang}/feature-fix.gif`,
+        `${siteUrl}/${lang}/feature-menu.gif`
+      ],
+      "softwareVersion": "1.0.0",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Danniel Navas",
+        "url": "https://github.com/dannielnavas"
+      },
+      "codeRepository": "https://github.com/dannielnavas/dotfiles",
+      "license": "https://opensource.org/licenses/MIT",
+      "featureList": [
+        "WezTerm GPU accelerated terminal configuration",
+        "Minimalist Starship prompt",
+        "Modular Zsh architecture with Zinit / Oh-My-Zsh support",
+        "Local AI Assistant powered by Ollama (Zero Telemetry)",
+        "Automated backup of existing dotfiles",
+        "Fast 1-line installation for macOS, CachyOS, Ubuntu, WSL2"
+      ]
+    }
+  ]
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="author" content="Danniel Navas" />
+<meta name="creator" content="Danniel Navas" />
+<meta name="publisher" content="Danniel Navas" />
+<meta name="application-name" content="Dilix" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Robots & Search Engine Indexing -->
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+<!-- Canonical & Multilingual Alternates -->
+<link rel="canonical" href={canonicalUrl} />
+<link rel="alternate" hreflang="es" href={esUrl} />
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="x-default" href={esUrl} />
+
+<!-- Open Graph / Facebook / WhatsApp / LinkedIn / Slack / Discord -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:description" content={ogDescription} />
+<meta property="og:locale" content={locale} />
+<meta property="og:locale:alternate" content={alternateLocale} />
+
+<!-- Primary Social Image (PNG high-res for universal preview compatibility) -->
+<meta property="og:image" content={ogPngImageUrl} />
+<meta property="og:image:secure_url" content={ogPngImageUrl} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="680" />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Secondary Social Image (Animated GIF demonstration from repository) -->
+<meta property="og:image" content={ogGifImageUrl} />
+<meta property="og:image:secure_url" content={ogGifImageUrl} />
+<meta property="og:image:type" content="image/gif" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="680" />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Twitter / X Cards -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@dannielnavas" />
+<meta name="twitter:creator" content="@dannielnavas" />
+<meta name="twitter:title" content={ogTitle} />
+<meta name="twitter:description" content={ogDescription} />
+<meta name="twitter:image" content={ogPngImageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<!-- Theme & Mobile / PWA App Tags -->
+<meta name="theme-color" content="#070b13" />
+<meta name="color-scheme" content="dark" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Dilix" />
+<meta name="format-detection" content="telephone=no" />
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
