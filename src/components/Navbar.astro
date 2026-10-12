@@ -1,0 +1,100 @@
+---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = translations[lang].nav;
+const homeHref = lang === 'en' ? '/en' : '/';
+---
+
+<header class="sticky top-0 z-50 w-full backdrop-blur-xl bg-[#090d16]/80 border-b border-slate-800/80 transition-all">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href={homeHref} class="flex items-center gap-3 group">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-shadow">
+        <div class="w-full h-full bg-[#090d16] rounded-[11px] flex items-center justify-center">
+          <span class="text-cyan-400 font-mono font-black text-lg group-hover:scale-110 transition-transform">&gt;_</span>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <span class="text-white font-bold text-lg tracking-tight flex items-center gap-1.5">
+          Dilix
+          <span class="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AI Dotfiles</span>
+        </span>
+      </div>
+    </a>
+
+    <!-- Navigation Links -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+      <a href="#caracteristicas" class="hover:text-white transition-colors">{t.features}</a>
+      <a href="#demo" class="hover:text-white transition-colors">{t.demo}</a>
+      <a href="#instalacion" class="hover:text-white transition-colors">{t.installation}</a>
+      <a href="#faq" class="hover:text-white transition-colors">{t.faq}</a>
+    </nav>
+
+    <!-- Actions & Language Switcher -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Language Switcher -->
+      <div class="flex items-center p-0.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono">
+        <a
+          href="/"
+          data-set-lang="es"
+          class={`px-2 py-1 rounded-md transition-all ${lang === 'es' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white'}`}
+          title="Español"
+        >
+          ES
+        </a>
+        <a
+          href="/en"
+          data-set-lang="en"
+          class={`px-2 py-1 rounded-md transition-all ${lang === 'en' ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-400 hover:text-white'}`}
+          title="English"
+        >
+          EN
+        </a>
+      </div>
+
+      <!-- GitHub Star -->
+      <a
+        href="https://github.com/dannielnavas/dotfiles"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-200 bg-slate-900/90 border border-slate-700/80 hover:bg-slate-800 hover:border-slate-600 hover:text-white transition-all shadow-sm"
+      >
+        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        <span>GitHub</span>
+        <span class="text-slate-500">•</span>
+        <span class="text-slate-400">{t.starGitHub}</span>
+      </a>
+
+      <!-- Install CTA -->
+      <a
+        href="#instalacion"
+        class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:from-indigo-400 transition-all shadow-md shadow-indigo-600/30"
+      >
+        <span>{t.installNow}</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Persist language selection when user clicks ES or EN
+  const langLinks = document.querySelectorAll('[data-set-lang]');
+  langLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const selected = link.getAttribute('data-set-lang');
+      if (selected) {
+        localStorage.setItem('dilix-lang', selected);
+      }
+    });
+  });
+</script>

@@ -1,0 +1,346 @@
+---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = translations[lang].install;
+const langFlag = lang === 'en' ? '--en' : '--es';
+---
+
+<section id="instalacion" class="py-24 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-4">
+        {t.eyebrow}
+      </div>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        {t.title} <span class="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent">{t.titleGradient}</span>
+      </h2>
+      <p class="mt-4 text-slate-400 text-base sm:text-lg">
+        {t.subtitle}
+      </p>
+
+      <!-- Main Method Toggle: Suite vs Plugin -->
+      <div class="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-900 border border-slate-800 shadow-inner">
+        <button
+          type="button"
+          id="btn-method-full"
+          class="method-toggle-btn active px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+        >
+          {t.btnFull}
+        </button>
+        <button
+          type="button"
+          id="btn-method-plugin"
+          class="method-toggle-btn px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-400 hover:text-white transition-all cursor-pointer"
+        >
+          {t.btnPlugin}
+        </button>
+      </div>
+    </div>
+
+    <!-- VIEW 1: METHOD 1 - SUITE COMPLETA -->
+    <div id="view-method-full" class="space-y-8 max-w-5xl mx-auto">
+      <!-- OS Subtabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          data-os-tab="auto"
+          class="os-tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-800 text-white border-indigo-500/50"
+        >
+          {t.tabAuto}
+        </button>
+        <button
+          type="button"
+          data-os-tab="macos"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+        >
+          {t.tabMacos}
+        </button>
+        <button
+          type="button"
+          data-os-tab="cachyos"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+        >
+          {t.tabCachyos}
+        </button>
+        <button
+          type="button"
+          data-os-tab="ubuntu"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+        >
+          {t.tabUbuntu}
+        </button>
+        <button
+          type="button"
+          data-os-tab="wsl2"
+          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium border transition-all cursor-pointer bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white"
+        >
+          {t.tabWsl2}
+        </button>
+      </div>
+
+      <!-- OS Command Terminal Display -->
+      <div class="rounded-2xl bg-[#090d16] border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h3 id="os-tab-title" class="text-xl font-bold text-white flex items-center gap-2">
+              {lang === 'en' ? 'Automatic Cross-Platform Detection' : 'Detección Automática Multiplataforma'}
+            </h3>
+            <p id="os-tab-desc" class="text-xs sm:text-sm text-slate-400 mt-1">
+              {lang === 'en' ? 'Automatically detects macOS, CachyOS, Ubuntu, or WSL2 and applies the optimal configuration.' : 'Detecta automáticamente si estás en macOS, CachyOS, Ubuntu o WSL2 y ejecuta la configuración óptima.'}
+            </p>
+          </div>
+          <button
+            id="os-copy-cmd-btn"
+            data-copied-text={t.copied}
+            data-copy-text={t.copyBtn}
+            class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold text-xs tracking-wide transition-all shadow-md shrink-0 cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span id="os-copy-feedback">{t.copyBtn}</span>
+          </button>
+        </div>
+
+        <!-- Code Block -->
+        <div class="bg-[#050811] p-4 rounded-xl border border-slate-800/90 font-mono text-xs sm:text-sm text-emerald-400 overflow-x-auto">
+          <code id="os-tab-code">git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles &amp;&amp; cd ~/dotfiles &amp;&amp; ./install.sh</code>
+        </div>
+
+        <!-- What happens breakdown (4 pillars) -->
+        <div class="pt-4 border-t border-slate-800/80">
+          <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">
+            {t.whatHappensTitle}
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="font-bold text-cyan-300 flex items-center gap-1.5">
+                <span>🔍</span> {t.step1Title}
+              </div>
+              <p class="text-slate-400">
+                {t.step1Desc}
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="font-bold text-indigo-300 flex items-center gap-1.5">
+                <span>📦</span> {t.step2Title}
+              </div>
+              <p class="text-slate-400">
+                {t.step2Desc}
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="font-bold text-emerald-300 flex items-center gap-1.5">
+                <span>🧠</span> {t.step3Title}
+              </div>
+              <p class="text-slate-400">
+                {t.step3Desc}
+              </p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+              <div class="font-bold text-purple-300 flex items-center gap-1.5">
+                <span>🔗</span> {t.step4Title}
+              </div>
+              <p class="text-slate-400">
+                {t.step4Desc}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: METHOD 2 - SOLO PLUGIN ZSH -->
+    <div id="view-method-plugin" class="hidden space-y-8 max-w-5xl mx-auto">
+      <div class="p-6 sm:p-8 rounded-2xl bg-[#090d16] border border-slate-800 shadow-2xl space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-white">
+            {t.pluginTitle}
+          </h3>
+          <p class="text-slate-400 text-sm mt-2">
+            {t.pluginDesc}
+          </p>
+        </div>
+
+        <!-- Subtabs: Oh-My-Zsh vs Zinit -->
+        <div class="space-y-6">
+          <!-- Option A: Oh-My-Zsh -->
+          <div class="p-5 rounded-xl bg-[#050811] border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-cyan-300 text-sm flex items-center gap-2">
+                <span>⚡</span> {t.omzTitle}
+              </h4>
+              <button
+                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                data-copy-target="omz-cmd"
+                data-copied-text={t.copied}
+              >
+                {t.copyBtn}
+              </button>
+            </div>
+            <pre class="font-mono text-xs text-emerald-400 overflow-x-auto p-3 rounded-lg bg-black/40"><code id="omz-cmd">git clone https://github.com/dannielnavas/dotfiles.git /tmp/dotfiles-temp &amp;&amp; \
+mkdir -p "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/dilix" &amp;&amp; \
+cp -r /tmp/dotfiles-temp/zsh/plugins/dilix/* "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/dilix/" &amp;&amp; \
+rm -rf /tmp/dotfiles-temp</code></pre>
+            <p class="text-xs text-slate-400">
+              {t.omzDesc}
+            </p>
+            <div class="p-2.5 rounded bg-black/40 border border-slate-800 font-mono text-xs text-indigo-300">
+              plugins=(... dilix)
+            </div>
+          </div>
+
+          <!-- Option B: Zinit -->
+          <div class="p-5 rounded-xl bg-[#050811] border border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-indigo-300 text-sm flex items-center gap-2">
+                <span>🚀</span> {t.zinitTitle}
+              </h4>
+              <button
+                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                data-copy-target="zinit-cmd"
+                data-copied-text={t.copied}
+              >
+                {t.copyBtn}
+              </button>
+            </div>
+            <pre class="font-mono text-xs text-emerald-400 overflow-x-auto p-3 rounded-lg bg-black/40"><code id="zinit-cmd">zinit ice wait"0" lucid
+zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/plugins/dilix/dilix.plugin.zsh</code></pre>
+            <p class="text-xs text-slate-400">
+              {t.zinitDesc}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ langFlag, lang }}>
+  // Method Toggle (Suite Completa vs Solo Plugin)
+  const btnMethodFull = document.getElementById('btn-method-full');
+  const btnMethodPlugin = document.getElementById('btn-method-plugin');
+  const viewMethodFull = document.getElementById('view-method-full');
+  const viewMethodPlugin = document.getElementById('view-method-plugin');
+
+  if (btnMethodFull && btnMethodPlugin && viewMethodFull && viewMethodPlugin) {
+    btnMethodFull.addEventListener('click', () => {
+      btnMethodFull.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodFull.classList.remove('text-slate-400');
+      btnMethodPlugin.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodPlugin.classList.add('text-slate-400');
+
+      viewMethodFull.classList.remove('hidden');
+      viewMethodPlugin.classList.add('hidden');
+    });
+
+    btnMethodPlugin.addEventListener('click', () => {
+      btnMethodPlugin.classList.add('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodPlugin.classList.remove('text-slate-400');
+      btnMethodFull.classList.remove('active', 'bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/30');
+      btnMethodFull.classList.add('text-slate-400');
+
+      viewMethodPlugin.classList.remove('hidden');
+      viewMethodFull.classList.add('hidden');
+    });
+  }
+
+  // OS Tab Switcher data
+  const osData = {
+    auto: {
+      title: lang === 'en' ? "Automatic Cross-Platform Detection" : "Detección Automática Multiplataforma",
+      desc: lang === 'en' ? "Automatically detects macOS, CachyOS, Ubuntu, or WSL2 and applies the optimal configuration." : "Detecta automáticamente si estás en macOS, CachyOS, Ubuntu o WSL2 y ejecuta la configuración óptima sin preguntas innecesarias.",
+      code: "git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh"
+    },
+    macos: {
+      title: lang === 'en' ? "macOS Installation (Apple Silicon / Intel)" : "Instalación en macOS (Apple Silicon / Intel)",
+      desc: lang === 'en' ? "Installs Homebrew if missing, configures WezTerm with native blur, and pulls all 19 Fastfetch dynamic themes." : "Instala Homebrew si no está presente, configura WezTerm con desenfoque nativo, y descarga los 19 logos y temas dinámicos de sqlsec/fastfetch.",
+      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --macos ${langFlag}`
+    },
+    cachyos: {
+      title: lang === 'en' ? "CachyOS Installation (Arch Linux)" : "Instalación en CachyOS (Arch Linux)",
+      desc: lang === 'en' ? "Auto-detects GPU acceleration (CUDA or ROCm) for Ollama, uses Paru/Pacman and applies high-performance kernel tuning." : "Detecta aceleración por GPU (CUDA o ROCm) para Ollama, utiliza Paru/Pacman y aplica optimizaciones de kernel de alto rendimiento.",
+      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --cachyos ${langFlag}`
+    },
+    ubuntu: {
+      title: lang === 'en' ? "Ubuntu / Debian Installation" : "Instalación en Ubuntu / Debian",
+      desc: lang === 'en' ? "Sets up modern toolchains via APT and official PPAs (eza, bat, fzf, fastfetch) avoiding binary collisions in /usr/bin." : "Configura herramientas modernas mediante APT y repositorios oficiales (eza, bat, fzf, fastfetch) evitando colisiones en /usr/bin.",
+      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --ubuntu ${langFlag}`
+    },
+    wsl2: {
+      title: lang === 'en' ? "WSL2 Installation (Windows Subsystem for Linux)" : "Instalación en WSL2 (Windows Subsystem for Linux)",
+      desc: lang === 'en' ? "Generates the .wezterm.lua bridge directly in Windows %USERPROFILE% and configures clip.exe for shared clipboard." : "Genera el puente .wezterm.lua directamente en el directorio de usuario de Windows (%USERPROFILE%) y configura clip.exe para portapapeles compartido.",
+      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --wsl2 ${langFlag}`
+    }
+  };
+
+  const osTabs = document.querySelectorAll('.os-tab-btn');
+  const osTitle = document.getElementById('os-tab-title');
+  const osDesc = document.getElementById('os-tab-desc');
+  const osCode = document.getElementById('os-tab-code');
+  const osCopyBtn = document.getElementById('os-copy-cmd-btn');
+  const osCopyFeedback = document.getElementById('os-copy-feedback');
+
+  osTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      osTabs.forEach(b => {
+        b.classList.remove('bg-slate-800', 'text-white', 'border-indigo-500/50');
+        b.classList.add('bg-slate-900', 'text-slate-400', 'border-slate-800');
+      });
+      btn.classList.add('bg-slate-800', 'text-white', 'border-indigo-500/50');
+      btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800');
+
+      const osKey = btn.getAttribute('data-os-tab');
+      if (osKey && osData[osKey]) {
+        if (osTitle) osTitle.textContent = osData[osKey].title;
+        if (osDesc) osDesc.textContent = osData[osKey].desc;
+        if (osCode) osCode.textContent = osData[osKey].code;
+      }
+    });
+  });
+
+  // OS copy button
+  if (osCopyBtn && osCopyFeedback && osCode) {
+    osCopyBtn.addEventListener('click', async () => {
+      const copyText = osCopyBtn.getAttribute('data-copy-text') || 'Copiar Comando';
+      const copiedText = osCopyBtn.getAttribute('data-copied-text') || '¡Copiado!';
+      try {
+        await navigator.clipboard.writeText(osCode.innerText.trim());
+        osCopyFeedback.textContent = copiedText;
+        setTimeout(() => {
+          osCopyFeedback.textContent = copyText;
+        }, 2000);
+      } catch (err) {
+        console.error('Error al copiar:', err);
+      }
+    });
+  }
+
+  // Plugin copy buttons
+  const pluginCopyBtns = document.querySelectorAll('.plugin-copy-btn');
+  pluginCopyBtns.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.getAttribute('data-copy-target');
+      const copiedText = btn.getAttribute('data-copied-text') || '¡Copiado!';
+      if (!targetId) return;
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        try {
+          await navigator.clipboard.writeText(targetEl.innerText.trim());
+          const original = btn.textContent;
+          btn.textContent = copiedText;
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 2000);
+        } catch (err) {
+          console.error('Error al copiar:', err);
+        }
+      }
+    });
+  });
+</script>

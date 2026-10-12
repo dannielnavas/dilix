@@ -1,0 +1,82 @@
+---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = translations[lang].footer;
+const tNav = translations[lang].nav;
+---
+
+<footer class="border-t border-slate-800/80 bg-[#060911] text-slate-400 text-sm py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/60">
+      
+      <!-- Brand & summary -->
+      <div class="md:col-span-5 space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-cyan-400 p-[1px] shadow-md shadow-indigo-500/20">
+            <div class="w-full h-full bg-[#090d16] rounded-[7px] flex items-center justify-center">
+              <span class="text-cyan-400 font-mono font-black text-sm">&gt;_</span>
+            </div>
+          </div>
+          <span class="text-white font-bold text-lg tracking-tight">Dilix Dotfiles</span>
+        </div>
+        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
+          {t.desc}
+        </p>
+        <div class="flex items-center gap-3 pt-1">
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">MIT License</span>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Ollama Local</span>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Zero Telemetry</span>
+        </div>
+      </div>
+
+      <!-- Links Column 1: Navigation -->
+      <div class="md:col-span-3 space-y-3">
+        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">{t.navTitle}</h4>
+        <ul class="space-y-2 text-xs sm:text-sm">
+          <li><a href="#caracteristicas" class="hover:text-white transition-colors">{tNav.features}</a></li>
+          <li><a href="#demo" class="hover:text-white transition-colors">{tNav.demo}</a></li>
+          <li><a href="#instalacion" class="hover:text-white transition-colors">{tNav.installation}</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors">{tNav.faq}</a></li>
+        </ul>
+      </div>
+
+      <!-- Links Column 2: Code & Repo -->
+      <div class="md:col-span-4 space-y-3">
+        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">{t.codeTitle}</h4>
+        <ul class="space-y-2 text-xs sm:text-sm">
+          <li>
+            <a
+              href="https://github.com/dannielnavas/dotfiles"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 transition-colors font-medium"
+            >
+              <span>GitHub: dannielnavas/dotfiles</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </li>
+          <li class="text-xs text-slate-500">
+            {t.compat}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom credits -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>
+        {t.credits}
+      </div>
+      <div class="font-mono text-[11px] text-slate-600">
+        git clone ~/dotfiles && ./install.sh
+      </div>
+    </div>
+  </div>
+</footer>

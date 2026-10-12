@@ -1,0 +1,113 @@
+---
+interface Props {
+  currentPage: 'es' | 'en';
+}
+
+const { currentPage } = Astro.props;
+---
+
+<script is:inline define:vars={{ currentPage }}>
+  (function () {
+    try {
+      var savedLang = localStorage.getItem('dilix-lang');
+
+      // 1. If user previously selected a language, respect their choice
+      if (savedLang) {
+        if (savedLang === 'en' && currentPage === 'es') {
+          window.location.replace('/en');
+          return;
+        }
+        if (savedLang === 'es' && currentPage === 'en') {
+          window.location.replace('/');
+          return;
+        }
+        return;
+      }
+
+      // 2. Spanish-speaking territories detection via Timezone
+      var spanishTimezoneKeywords = [
+        'Madrid', 'Canary', 'Ceuta', 'Bogota', 'Mexico', 'Cancun', 'Merida', 
+        'Monterrey', 'Mazatlan', 'Chihuahua', 'Hermosillo', 'Tijuana', 'Argentina', 
+        'Buenos_Aires', 'Cordoba', 'Mendoza', 'Santiago', 'Easter', 'Lima', 
+        'Caracas', 'Guayaquil', 'Galapagos', 'Guatemala', 'Havana', 'La_Paz', 
+        'Santo_Domingo', 'Tegucigalpa', 'Asuncion', 'El_Salvador', 'Managua', 
+        'Costa_Rica', 'Panama', 'Montevideo', 'Puerto_Rico', 'Malabo'
+      ];
+
+      var userTz = '';
+      try {
+        userTz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone || '' : '';
+      } catch (e) {}
+
+      var isSpanishTz = false;
+      for (var i = 0; i < spanishTimezoneKeywords.length; i++) {
+        if (userTz.indexOf(spanishTimezoneKeywords[i]) !== -1) {
+          isSpanishTz = true;
+          break;
+        }
+      }
+
+      // 3. Browser language detection
+      var langs = navigator.languages || [navigator.language || ''];
+      var isSpanishLang = false;
+      for (var j = 0; j < langs.length; j++) {
+        if (langs[j] && langs[j].toLowerCase().indexOf('es') === 0) {
+          isSpanishLang = true;
+          break;
+        }
+      }
+
+      // Determine if user location is Hispanic / Spanish-speaking
+      var isHispanic = isSpanishTz || isSpanishLang;
+
+      // If user is NOT Hispanic and on Spanish root (/), redirect to English (/en)
+      if (!isHispanic && currentPage === 'es') {
+        window.location.replace('/en');
+        return;
+      }
+
+      // If user IS Hispanic and on English (/en), redirect to Spanish (/)
+      if (isHispanic && currentPage === 'en') {
+        window.location.replace('/');
+        return;
+      }
+
+      // 4. Background IP Geolocation validation (with quick timeout)
+      // Checks country code for edge cases (e.g. English OS inside a Spanish country, or vice-versa)
+      var hispanicCountryCodes = [
+        'ES', 'MX', 'CO', 'AR', 'PE', 'VE', 'CL', 'GT', 'EC', 
+        'BO', 'CU', 'DO', 'HN', 'PY', 'SV', 'NI', 'CR', 'PA', 
+        'UY', 'PR', 'GQ'
+      ];
+
+      var alreadyCheckedIp = sessionStorage.getItem('dilix-geo-checked');
+      if (!alreadyCheckedIp) {
+        sessionStorage.setItem('dilix-geo-checked', '1');
+        
+        var controller = window.AbortController ? new AbortController() : null;
+        var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 1800) : null;
+
+        fetch('https://api.country.is', {
+          signal: controller ? controller.signal : undefined
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (timeoutId) clearTimeout(timeoutId);
+            if (!data || !data.country) return;
+
+            var countryCode = data.country.toUpperCase();
+            var countryIsHispanic = hispanicCountryCodes.indexOf(countryCode) !== -1;
+
+            if (countryIsHispanic && currentPage === 'en' && !localStorage.getItem('dilix-lang')) {
+              window.location.replace('/');
+            } else if (!countryIsHispanic && currentPage === 'es' && !localStorage.getItem('dilix-lang')) {
+              window.location.replace('/en');
+            }
+          })
+          .catch(function () {});
+      }
+    } catch (err) {
+      // Graceful fallback: do nothing on error
+    }
+  })();
+</script>

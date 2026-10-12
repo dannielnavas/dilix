@@ -1,0 +1,71 @@
+---
+import '../../styles/global.css';
+import { translations } from '../../i18n/translations';
+import Navbar from '../../components/Navbar.astro';
+import Hero from '../../components/Hero.astro';
+import OsBadges from '../../components/OsBadges.astro';
+import BentoGrid from '../../components/BentoGrid.astro';
+import TerminalEmulator from '../../components/TerminalEmulator.astro';
+import InstallTabs from '../../components/InstallTabs.astro';
+import Faq from '../../components/Faq.astro';
+import Footer from '../../components/Footer.astro';
+import GeoDetect from '../../components/GeoDetect.astro';
+
+const lang = 'en';
+const seo = translations[lang].seo;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <GeoDetect currentPage={lang} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- SEO Meta Tags -->
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta name="keywords" content="dotfiles, terminal, wezterm, starship, zsh, ollama, ai copilot, linux, macos, wsl2, cachyos" />
+    <meta name="author" content="Danniel Navas" />
+
+    <!-- Alternate language links -->
+    <link rel="alternate" hreflang="es" href="https://github.com/dannielnavas/dotfiles" />
+    <link rel="alternate" hreflang="en" href="https://github.com/dannielnavas/dotfiles/en" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content="https://github.com/dannielnavas/dotfiles" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+  </head>
+  <body class="min-h-screen bg-[#090d16] text-slate-100 antialiased selection:bg-indigo-600 selection:text-white bg-grid-pattern">
+    <Navbar lang={lang} />
+
+    <main>
+      <Hero lang={lang} />
+      <OsBadges lang={lang} />
+      <BentoGrid lang={lang} />
+      <TerminalEmulator lang={lang} />
+      <InstallTabs lang={lang} />
+      <Faq lang={lang} />
+    </main>
+
+    <Footer lang={lang} />
+  </body>
+</html>
