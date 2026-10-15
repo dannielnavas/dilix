@@ -21,7 +21,7 @@ const locale = seoData.locale;
 const alternateLocale = seoData.localeAlternate;
 const siteName = seoData.siteName;
 
-const siteUrl = 'https://dilix.danniel.dev';
+const siteUrl = 'https://nacel.danniel.dev';
 const canonicalUrl = lang === 'es' ? `${siteUrl}/` : `${siteUrl}/en/`;
 const esUrl = `${siteUrl}/`;
 const enUrl = `${siteUrl}/en/`;
@@ -41,7 +41,7 @@ const structuredData = {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       "url": siteUrl,
-      "name": "Dilix",
+      "name": "Nacel",
       "description": description,
       "inLanguage": [locale, alternateLocale],
       "publisher": {
@@ -53,7 +53,7 @@ const structuredData = {
     {
       "@type": "SoftwareApplication",
       "@id": `${canonicalUrl}#software`,
-      "name": "Dilix",
+      "name": "Nacel",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "macOS (Apple Silicon & Intel), Linux (CachyOS, Arch Linux, Ubuntu, Debian), Windows (WSL2)",
       "description": description,
@@ -66,7 +66,7 @@ const structuredData = {
         `${siteUrl}/${lang}/feature-fix.gif`,
         `${siteUrl}/${lang}/feature-menu.gif`
       ],
-      "softwareVersion": "1.0.0",
+      "softwareVersion": "2.0.0",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -77,15 +77,15 @@ const structuredData = {
         "name": "Danniel Navas",
         "url": "https://github.com/dannielnavas"
       },
-      "codeRepository": "https://github.com/dannielnavas/dotfiles",
+      "codeRepository": "https://github.com/dannielnavas/nacel",
       "license": "https://opensource.org/licenses/MIT",
       "featureList": [
-        "WezTerm GPU accelerated terminal configuration",
-        "Minimalist Starship prompt",
-        "Modular Zsh architecture with Zinit / Oh-My-Zsh support",
-        "Local AI Assistant powered by Ollama (Zero Telemetry)",
-        "Automated backup of existing dotfiles",
-        "Fast 1-line installation for macOS, CachyOS, Ubuntu, WSL2"
+        "Local AI Assistant powered by Ollama (llama3.2:1b, qwen2.5-coder with zero telemetry)",
+        "Zero-pollution precision error isolation and surgical diagnosis",
+        "Native multi-shell integration for Zsh, Oh My Zsh, Fish, and Bash",
+        "Hardware auto-tuning for CPU, RAM, and GPU acceleration",
+        "WezTerm GPU accelerated terminal suite and Starship prompt",
+        "Universal 1-line installation for macOS, CachyOS, Ubuntu, WSL2"
       ]
     }
   ]
@@ -100,7 +100,7 @@ const structuredData = {
 <meta name="author" content="Danniel Navas" />
 <meta name="creator" content="Danniel Navas" />
 <meta name="publisher" content="Danniel Navas" />
-<meta name="application-name" content="Dilix" />
+<meta name="application-name" content="Nacel" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Robots & Search Engine Indexing -->
@@ -154,7 +154,7 @@ const structuredData = {
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="Dilix" />
+<meta name="apple-mobile-web-app-title" content="Nacel" />
 <meta name="format-detection" content="telephone=no" />
 
 <!-- Web App Manifest -->

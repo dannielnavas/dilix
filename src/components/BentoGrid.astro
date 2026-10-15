@@ -29,10 +29,10 @@ const t = translations[lang].bento;
       </p>
     </div>
 
-    <!-- Editorial Showcase Layout (Eliminating box soup / container fatigue) -->
+    <!-- Editorial Showcase Layout -->
     <div class="space-y-12">
       
-      <!-- Feature 01: Dilix Copilot Local AI (Hero Split Layout) -->
+      <!-- Feature 01: Nacel Copilot Local AI (Hero Split Layout) -->
       <div class="rounded-3xl bg-gradient-to-b from-[#0e1424] to-[#0a0e1a] border border-slate-800/90 p-6 sm:p-10 lg:p-12 shadow-2xl overflow-hidden relative">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <!-- Text column -->
@@ -54,13 +54,13 @@ const t = translations[lang].bento;
               {t.c1.desc}
             </p>
 
-            <!-- Key Benefits Checklist (Clean typographic layout, no nested boxes) -->
+            <!-- Key Benefits Checklist -->
             <ul class="space-y-2.5 pt-2 text-xs sm:text-sm text-slate-300 font-mono">
               <li class="flex items-center gap-2.5">
                 <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                <span>{lang === 'en' ? 'Ollama runtime with qwen2.5-coder:1.5b (< 2GB RAM)' : 'Motor Ollama con qwen2.5-coder:1.5b (< 2GB RAM)'}</span>
+                <span>{lang === 'en' ? 'Hardware-tuned: llama3.2:1b & qwen2.5-coder' : 'Calibrado a tu RAM: llama3.2:1b & qwen2.5-coder'}</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,7 +72,7 @@ const t = translations[lang].bento;
                 <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                <span>{lang === 'en' ? 'Under 250ms latency on Apple Silicon & Intel/AMD' : 'Latencia menor a 250ms en Apple Silicon e Intel/AMD'}</span>
+                <span>{lang === 'en' ? 'Under 200ms latency on Apple Silicon & Intel/AMD' : 'Latencia menor a 200ms en Apple Silicon e Intel/AMD'}</span>
               </li>
             </ul>
           </div>
@@ -85,13 +85,13 @@ const t = translations[lang].bento;
                   <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
                   <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
                   <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
-                  <span class="ml-2 text-slate-300">dilix explain</span>
+                  <span class="ml-2 text-slate-300">nacel explain</span>
                 </div>
                 <span class="text-emerald-400 text-[11px]">Tokyo Night</span>
               </div>
               <img
                 src={`/${lang}/feature-explain.gif`}
-                alt={lang === 'en' ? 'Dilix code and command explanation real terminal recording' : 'Grabación real de explicación de código y comandos con Dilix'}
+                alt={lang === 'en' ? 'Nacel code and command explanation real terminal recording' : 'Grabación real de explicación de código y comandos con Nacel'}
                 class="w-full h-auto block select-none"
                 loading="lazy"
                 width="1200"
@@ -102,10 +102,10 @@ const t = translations[lang].bento;
         </div>
       </div>
 
-      <!-- Feature 02 & 03: Two Balanced Pillars (Autodiagnóstico & Centro de Control) -->
+      <!-- Feature 02 & 03: Two Balanced Pillars (Diagnóstico Cero Ruido & Centro de Control) -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
-        <!-- Pillar 02: Autodiagnóstico -->
+        <!-- Pillar 02: Diagnóstico Quirúrgico de Errores (Zero-Pollution Error Context) -->
         <div class="rounded-3xl bg-[#0b0f1a] border border-slate-800/80 p-6 sm:p-8 flex flex-col justify-between hover:border-emerald-500/40 transition-colors">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
@@ -122,12 +122,37 @@ const t = translations[lang].bento;
             <p class="text-slate-300 text-sm leading-relaxed">
               {t.c2.desc}
             </p>
+
+            <!-- 3 Highlights requested by user -->
+            <div class="space-y-2.5 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-2.5">
+                <span class="text-emerald-400 font-bold shrink-0">✅</span>
+                <div>
+                  <span class="font-bold text-white">{t.c2.badgeError}:</span>
+                  <span class="text-slate-400 ml-1">{t.c2.descError}</span>
+                </div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-2.5">
+                <span class="text-cyan-400 font-bold shrink-0">✅</span>
+                <div>
+                  <span class="font-bold text-white">{t.c2.badgeScrollback}:</span>
+                  <span class="text-slate-400 ml-1">{t.c2.descScrollback}</span>
+                </div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✅</span>
+                <div>
+                  <span class="font-bold text-white">{t.c2.badgePipes}:</span>
+                  <code class="text-emerald-300 font-mono text-[11px] ml-1 bg-black/40 px-1.5 py-0.5 rounded">{t.c2.descPipes}</code>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="mt-6 rounded-2xl overflow-hidden border border-slate-800/80 bg-[#16161e] shadow-lg">
             <img
               src={`/${lang}/feature-fix.gif`}
-              alt={lang === 'en' ? 'Dilix error auto-diagnosis real terminal recording' : 'Grabación real de autodiagnóstico de error en terminal con Dilix'}
+              alt={lang === 'en' ? 'Nacel error auto-diagnosis real terminal recording' : 'Grabación real de autodiagnóstico de error en terminal con Nacel'}
               class="w-full h-auto block select-none"
               loading="lazy"
               width="1200"
@@ -136,14 +161,14 @@ const t = translations[lang].bento;
           </div>
         </div>
 
-        <!-- Pillar 03: Centro de Control dilix menu -->
+        <!-- Pillar 03: Centro de Control nacel menu -->
         <div class="rounded-3xl bg-[#0b0f1a] border border-slate-800/80 p-6 sm:p-8 flex flex-col justify-between hover:border-cyan-500/40 transition-colors">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono font-bold text-cyan-400 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">
                 {t.c3.tag}
               </span>
-              <kbd class="px-2.5 py-1 text-xs font-mono bg-slate-800 text-cyan-300 rounded-md border border-cyan-500/30 shadow-sm font-semibold">dilix menu</kbd>
+              <kbd class="px-2.5 py-1 text-xs font-mono bg-slate-800 text-cyan-300 rounded-md border border-cyan-500/30 shadow-sm font-semibold">nacel menu</kbd>
             </div>
 
             <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
@@ -158,7 +183,7 @@ const t = translations[lang].bento;
           <div class="mt-6 rounded-2xl overflow-hidden border border-slate-800/80 bg-[#16161e] shadow-lg">
             <img
               src={`/${lang}/feature-menu.gif`}
-              alt={lang === 'en' ? 'Dilix interactive CLI menu real terminal recording' : 'Grabación real del centro de control dilix menu'}
+              alt={lang === 'en' ? 'Nacel interactive CLI menu real terminal recording' : 'Grabación real del centro de control nacel menu'}
               class="w-full h-auto block select-none"
               loading="lazy"
               width="1200"
@@ -168,7 +193,7 @@ const t = translations[lang].bento;
         </div>
       </div>
 
-      <!-- Features 04, 05, 06: Triad of Engineering Excellence (Open layout, not box-inside-box) -->
+      <!-- Features 04, 05, 06: Triad of Engineering Excellence -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
         
         <!-- 04: Visual Aesthetics -->
@@ -197,26 +222,27 @@ const t = translations[lang].bento;
           <h4 class="text-lg font-bold text-white tracking-tight">{t.c5.title}</h4>
           <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{t.c5.desc}</p>
           <div class="pt-2 text-xs font-mono text-slate-500 flex flex-wrap gap-2">
-            <span class="text-emerald-400">brew</span>
+            <span class="text-emerald-400">macOS (brew)</span>
             <span>•</span>
-            <span class="text-cyan-400">pacman/paru</span>
+            <span class="text-cyan-400">CachyOS</span>
             <span>•</span>
-            <span class="text-slate-300">apt</span>
+            <span class="text-slate-300">Ubuntu</span>
             <span>•</span>
             <span class="text-amber-400">WSL2</span>
           </div>
         </div>
 
-        <!-- 06: Modular Zsh -->
+        <!-- 06: Multi-Shell Native -->
         <div class="p-6 rounded-2xl bg-[#080d17]/60 border border-slate-800/80 hover:border-slate-700 transition-colors space-y-4">
           <div class="flex items-center justify-between">
             <span class="text-xs font-mono text-emerald-400 font-semibold">{t.c6.tag}</span>
-            <span class="text-xs font-mono text-slate-400">Zero Startup Lag</span>
+            <span class="text-xs font-mono text-emerald-400">Zsh • Fish • Bash</span>
           </div>
           <h4 class="text-lg font-bold text-white tracking-tight">{t.c6.title}</h4>
           <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{t.c6.desc}</p>
-          <div class="pt-2 text-xs font-mono text-emerald-400/90 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-            <code>plugins=(... dilix)</code>
+          <div class="pt-2 text-xs font-mono text-emerald-400/90 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center justify-between">
+            <code>plugins=(... nacel)</code>
+            <span class="text-[11px] text-slate-500">Zero startup lag</span>
           </div>
         </div>
 

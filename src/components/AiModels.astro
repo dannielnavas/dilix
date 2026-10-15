@@ -1,0 +1,178 @@
+---
+import { translations, type Locale } from '../i18n/translations';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = translations[lang].models;
+---
+
+<section id="modelos" class="py-24 relative overflow-hidden bg-[#070b14]">
+  <!-- Ambient background glow -->
+  <div class="absolute top-1/3 left-1/4 w-[650px] h-[400px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-30"></div>
+  <div class="absolute bottom-10 right-1/4 w-[500px] h-[350px] glow-cyan rounded-full blur-3xl pointer-events-none -z-10 opacity-25"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="max-w-3xl mb-14">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4 font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        {t.eyebrow}
+      </div>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        {t.title}
+      </h2>
+      <p class="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
+        {t.subtitle}
+      </p>
+    </div>
+
+    <!-- Top Spotlight Bento: Featured llama3.2:1b + Hardware Profiler Info -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+      
+      <!-- Featured Card: llama3.2:1b (Meta) -->
+      <div class="lg:col-span-7 rounded-3xl bg-gradient-to-br from-[#0e1626] via-[#09101d] to-[#060a12] border border-emerald-500/40 p-6 sm:p-8 shadow-2xl relative overflow-hidden model-card group">
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <span class="badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono font-bold tracking-wide">
+            {t.llamaBadge}
+          </span>
+          <span class="ram-req text-xs font-mono px-3 py-1 rounded-lg bg-slate-900/90 text-cyan-300 border border-cyan-500/30 font-semibold">
+            {t.llamaRam}
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex items-baseline gap-3">
+            <h3 class="text-2xl sm:text-3xl font-mono font-black text-white group-hover:text-emerald-400 transition-colors">
+              {t.llamaTitle}
+            </h3>
+            <span class="text-xs font-mono text-slate-400">by Meta AI</span>
+          </div>
+
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            {t.llamaDesc}
+          </p>
+        </div>
+
+        <!-- Metric highlights -->
+        <div class="mt-6 pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-3 text-center">
+          <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <div class="text-[11px] font-mono text-slate-400 uppercase">{lang === 'en' ? 'Footprint' : 'Peso Disco'}</div>
+            <div class="text-base sm:text-lg font-bold font-mono text-emerald-400 mt-0.5">~1.3 GB</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <div class="text-[11px] font-mono text-slate-400 uppercase">{lang === 'en' ? 'Inference' : 'Latencia'}</div>
+            <div class="text-base sm:text-lg font-bold font-mono text-cyan-300 mt-0.5">&lt; 180ms</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <div class="text-[11px] font-mono text-slate-400 uppercase">{lang === 'en' ? 'Target' : 'Especialidad'}</div>
+            <div class="text-base sm:text-lg font-bold font-mono text-white mt-0.5">{lang === 'en' ? 'Errors & Logs' : 'Fallos & Logs'}</div>
+          </div>
+        </div>
+
+        <!-- Quick Activation pill -->
+        <div class="mt-5 flex items-center justify-between text-xs font-mono bg-black/40 p-2.5 rounded-xl border border-slate-800">
+          <code class="text-emerald-300 select-all">export NACEL_MODEL="llama3.2:1b"</code>
+          <span class="text-slate-500 hidden sm:inline">{lang === 'en' ? 'Default on 2GB-4GB RAM' : 'Por defecto en 2GB-4GB RAM'}</span>
+        </div>
+      </div>
+
+      <!-- Side Explainer: Dynamic Hardware Auto-Selection -->
+      <div class="lg:col-span-5 rounded-3xl bg-[#090d16] border border-slate-800 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <span class="text-xs font-mono font-bold text-cyan-400 px-2.5 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/20">
+            {lang === 'en' ? 'ZERO CONFIGURATION' : 'CERO CONFIGURACIÓN'}
+          </span>
+          <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            {lang === 'en' ? 'Intelligent Hardware Profiler' : 'Perfilador Inteligente de Hardware'}
+          </h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            {lang === 'en' 
+              ? 'During installation, Nacel benchmarks your system. If you have 8GB+ RAM, it installs qwen2.5-coder:7b for deep reasoning. If memory is tight (≤ 4GB), it selects llama3.2:1b or qwen2.5-coder:1.5b to guarantee zero freezing.'
+              : 'Durante la instalación, Nacel inspecciona tu equipo. Si dispones de 8GB+ de RAM, instala qwen2.5-coder:7b para máxima precisión de código. Si la memoria es justa (≤ 4GB), selecciona llama3.2:1b o qwen2.5-coder:1.5b para garantizar cero congelamientos.'}
+          </p>
+        </div>
+
+        <div class="space-y-2.5 text-xs font-mono">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <span class="text-slate-400">2GB - 4GB RAM</span>
+            <span class="text-emerald-400 font-bold">llama3.2:1b / 1.5b</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <span class="text-slate-400">4GB - 8GB RAM</span>
+            <span class="text-cyan-300 font-bold">qwen2.5-coder:3b</span>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800/80">
+            <span class="text-slate-400">8GB - 16GB+ RAM</span>
+            <span class="text-emerald-400 font-bold">qwen2.5-coder:7b (⭐)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Full Comparative Table (Responsive & Modern) -->
+    <div class="rounded-3xl bg-[#090d16] border border-slate-800 shadow-2xl overflow-hidden">
+      <div class="p-5 sm:p-6 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h3 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>📊</span> {lang === 'en' ? 'Model Matrix & Hardware Footprint' : 'Matriz Comparativa de Modelos y Consumo'}
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">
+            {lang === 'en' ? 'Switch models anytime with nacel menu or by defining NACEL_MODEL in your shell.' : 'Cambia de modelo en cualquier momento con nacel menu o definiendo NACEL_MODEL en tu shell.'}
+          </p>
+        </div>
+        <span class="text-xs font-mono text-emerald-400/90 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 shrink-0">
+          Ollama 100% Offline
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800/90 bg-[#050811]/60 text-xs font-mono text-slate-400 uppercase tracking-wider">
+              <th scope="col" class="py-3.5 px-5">{t.tableHeaders.model}</th>
+              <th scope="col" class="py-3.5 px-5">{t.tableHeaders.tag}</th>
+              <th scope="col" class="py-3.5 px-5">{t.tableHeaders.size}</th>
+              <th scope="col" class="py-3.5 px-5">{t.tableHeaders.specialty}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-xs sm:text-sm font-sans">
+            {t.list.map((m) => (
+              <tr class={`transition-colors hover:bg-slate-800/40 ${m.name === 'llama3.2:1b' ? 'bg-emerald-950/15' : ''}`}>
+                <td class="py-4 px-5 font-mono font-bold text-white whitespace-nowrap">
+                  <div class="flex items-center gap-2">
+                    <span class={m.isRecommended ? 'text-amber-400' : m.isNew ? 'text-emerald-400' : 'text-slate-400'}>
+                      {m.isRecommended ? '⭐' : m.isNew ? '🎯' : '•'}
+                    </span>
+                    <span class={m.name === 'llama3.2:1b' ? 'text-emerald-300' : ''}>{m.name}</span>
+                    {m.isNew && (
+                      <span class="text-[10px] uppercase font-bold font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                        {lang === 'en' ? 'New' : 'Nuevo'}
+                      </span>
+                    )}
+                  </div>
+                </td>
+                <td class="py-4 px-5 font-mono text-xs text-slate-300 whitespace-nowrap">
+                  <span class={`px-2 py-1 rounded-md ${m.isRecommended ? 'bg-amber-500/10 text-amber-300 border border-amber-500/20' : m.isNew ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 'bg-slate-800/70 text-slate-300'}`}>
+                    {m.tag}
+                  </span>
+                </td>
+                <td class="py-4 px-5 font-mono text-xs text-cyan-300/90 whitespace-nowrap">
+                  {m.size}
+                </td>
+                <td class="py-4 px-5 text-slate-300">
+                  {m.specialty}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

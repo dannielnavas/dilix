@@ -9,7 +9,7 @@ const { currentPage } = Astro.props;
 <script is:inline define:vars={{ currentPage }}>
   (function () {
     try {
-      var savedLang = localStorage.getItem('dilix-lang');
+      var savedLang = localStorage.getItem('nacel-lang') || localStorage.getItem('dilix-lang');
 
       // 1. If user previously selected a language, respect their choice
       if (savedLang) {
@@ -80,9 +80,9 @@ const { currentPage } = Astro.props;
         'UY', 'PR', 'GQ'
       ];
 
-      var alreadyCheckedIp = sessionStorage.getItem('dilix-geo-checked');
+      var alreadyCheckedIp = sessionStorage.getItem('nacel-geo-checked') || sessionStorage.getItem('dilix-geo-checked');
       if (!alreadyCheckedIp) {
-        sessionStorage.setItem('dilix-geo-checked', '1');
+        sessionStorage.setItem('nacel-geo-checked', '1');
         
         var controller = window.AbortController ? new AbortController() : null;
         var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 1800) : null;
@@ -98,9 +98,10 @@ const { currentPage } = Astro.props;
             var countryCode = data.country.toUpperCase();
             var countryIsHispanic = hispanicCountryCodes.indexOf(countryCode) !== -1;
 
-            if (countryIsHispanic && currentPage === 'en' && !localStorage.getItem('dilix-lang')) {
+            var userPref = localStorage.getItem('nacel-lang') || localStorage.getItem('dilix-lang');
+            if (countryIsHispanic && currentPage === 'en' && !userPref) {
               window.location.replace('/');
-            } else if (!countryIsHispanic && currentPage === 'es' && !localStorage.getItem('dilix-lang')) {
+            } else if (!countryIsHispanic && currentPage === 'es' && !userPref) {
               window.location.replace('/en');
             }
           })

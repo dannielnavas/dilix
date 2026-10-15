@@ -7,11 +7,11 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const t = translations[lang].install;
-const langFlag = lang === 'en' ? '--en' : '--es';
+const universalCommand = "curl -fsSL https://raw.githubusercontent.com/dannielnavas/nacel/main/install.sh | bash";
 ---
 
 <section id="instalacion" class="py-24 relative overflow-hidden">
-  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <!-- Subtle ambient glow in background -->
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-30"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,99 +28,52 @@ const langFlag = lang === 'en' ? '--en' : '--es';
         {t.subtitle}
       </p>
 
-      <!-- Main Method Toggle: Suite vs Plugin (High contrast, clean switch) -->
+      <!-- Main Method Toggle: Universal vs Shell-Specific -->
       <div class="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-900 border border-slate-800">
         <button
           type="button"
-          id="btn-method-full"
+          id="btn-method-universal"
           class="method-toggle-btn active px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20"
         >
-          {t.btnFull}
+          {t.btnUniversal}
         </button>
         <button
           type="button"
-          id="btn-method-plugin"
+          id="btn-method-shells"
           class="method-toggle-btn px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-400 hover:text-white transition-all cursor-pointer"
         >
-          {t.btnPlugin}
+          {t.btnShells}
         </button>
       </div>
     </div>
 
-    <!-- VIEW 1: METHOD 1 - SUITE COMPLETA -->
-    <div id="view-method-full" class="space-y-8 max-w-5xl mx-auto">
-      <!-- Detected OS banner -->
-      <div id="os-detect-banner" class="hidden p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center flex items-center justify-center gap-2 max-w-2xl mx-auto font-mono">
+    <!-- VIEW 1: COMANDO UNIVERSAL (AUTO-DETECTA SHELL Y HARDWARE) -->
+    <div id="view-method-universal" class="space-y-8 max-w-5xl mx-auto">
+      <!-- Detected OS & Hardware Banner -->
+      <div id="os-detect-banner" class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs text-center flex items-center justify-center gap-2 max-w-2xl mx-auto font-mono">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span id="os-detect-banner-text">
-          {lang === 'en' ? 'Detected OS: Recommended command pre-selected for your system.' : 'Sistema detectado: Comando recomendado seleccionado automáticamente para tu equipo.'}
+          {lang === 'en' ? 'Hardware & Shell Auto-Detection: Auto-tunes to your CPU, RAM, GPU, and active shell.' : 'Auto-detección de Shell y Hardware: Calibra automáticamente CPU, RAM, GPU y tu shell activa.'}
         </span>
       </div>
 
-      <!-- OS Subtabs (Clean horizontal pills) -->
-      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-        <button
-          type="button"
-          data-os-tab="auto"
-          class="os-tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-800 text-white border border-emerald-500/50"
-        >
-          {t.tabAuto}
-        </button>
-        <button
-          type="button"
-          data-os-tab="macos"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
-        >
-          <span>{t.tabMacos}</span>
-          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-            {lang === 'en' ? 'Your OS' : 'Tu SO'}
-          </span>
-        </button>
-        <button
-          type="button"
-          data-os-tab="cachyos"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
-        >
-          <span>{t.tabCachyos}</span>
-          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-            {lang === 'en' ? 'Your OS' : 'Tu SO'}
-          </span>
-        </button>
-        <button
-          type="button"
-          data-os-tab="ubuntu"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
-        >
-          <span>{t.tabUbuntu}</span>
-          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-            {lang === 'en' ? 'Your OS' : 'Tu SO'}
-          </span>
-        </button>
-        <button
-          type="button"
-          data-os-tab="wsl2"
-          class="os-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-1.5"
-        >
-          <span>{t.tabWsl2}</span>
-          <span class="os-rec-badge hidden px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-            {lang === 'en' ? 'Your OS' : 'Tu SO'}
-          </span>
-        </button>
-      </div>
-
-      <!-- OS Command Terminal Display -->
+      <!-- Universal Command Card -->
       <div class="rounded-3xl bg-[#090d16] border border-slate-800 shadow-2xl p-6 sm:p-8 space-y-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div>
-            <h3 id="os-tab-title" class="text-xl font-bold text-white flex items-center gap-2">
-              {lang === 'en' ? 'Automatic Cross-Platform Detection' : 'Detección Automática Multiplataforma'}
+            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+              <span>⚡</span> {t.tabUniversal}
+              <span class="text-[11px] font-mono font-normal px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                {lang === 'en' ? 'One-Line Installer' : '1 solo comando'}
+              </span>
             </h3>
-            <p id="os-tab-desc" class="text-xs sm:text-sm text-slate-400 mt-1">
-              {lang === 'en' ? 'Automatically detects macOS, CachyOS, Ubuntu, or WSL2 and applies the optimal configuration.' : 'Detecta automáticamente si estás en macOS, CachyOS, Ubuntu o WSL2 y ejecuta la configuración óptima.'}
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+              {t.universalDesc}
             </p>
           </div>
           <button
-            id="os-copy-cmd-btn"
+            id="universal-copy-btn"
+            data-clipboard={universalCommand}
             data-copied-text={t.copied}
             data-copy-text={t.copyBtn}
             class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-bold text-xs tracking-wide transition-all shadow-md shadow-emerald-500/20 shrink-0 cursor-pointer"
@@ -128,38 +81,39 @@ const langFlag = lang === 'en' ? '--en' : '--es';
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
             </svg>
-            <span id="os-copy-feedback">{t.copyBtn}</span>
+            <span id="universal-copy-label">{t.copyBtn}</span>
           </button>
         </div>
 
         <!-- Code Block -->
-        <div class="bg-[#050811] p-4 rounded-xl border border-slate-800/90 font-mono text-xs sm:text-sm text-emerald-400 overflow-x-auto">
-          <code id="os-tab-code">git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles &amp;&amp; cd ~/dotfiles &amp;&amp; ./install.sh</code>
+        <div class="bg-[#050811] p-4 rounded-xl border border-slate-800/90 font-mono text-xs sm:text-sm text-emerald-400 overflow-x-auto flex items-center justify-between">
+          <code id="universal-code-text" class="select-all">{universalCommand}</code>
         </div>
 
-        <!-- What happens breakdown (Streamlined 4-stage progression, no nested box soup) -->
+        <!-- 4-Stage What Happens Breakdown -->
         <div class="pt-4 border-t border-slate-800/80">
-          <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-5 font-mono">
+          <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-5 font-mono flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
             {t.whatHappensTitle}
           </h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
             <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
-              <span class="text-cyan-400 font-mono font-bold text-[11px] block">01 • RECON</span>
+              <span class="text-cyan-400 font-mono font-bold text-[11px] block">01 • PROFILING</span>
               <div class="font-bold text-white text-sm">{t.step1Title}</div>
               <p class="text-slate-400 leading-relaxed">{t.step1Desc}</p>
             </div>
             <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
-              <span class="text-teal-300 font-mono font-bold text-[11px] block">02 • TOOLCHAIN</span>
+              <span class="text-teal-300 font-mono font-bold text-[11px] block">02 • RUNTIME</span>
               <div class="font-bold text-white text-sm">{t.step2Title}</div>
               <p class="text-slate-400 leading-relaxed">{t.step2Desc}</p>
             </div>
             <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
-              <span class="text-emerald-400 font-mono font-bold text-[11px] block">03 • LOCAL AI</span>
+              <span class="text-emerald-400 font-mono font-bold text-[11px] block">03 • AI MODEL</span>
               <div class="font-bold text-white text-sm">{t.step3Title}</div>
               <p class="text-slate-400 leading-relaxed">{t.step3Desc}</p>
             </div>
             <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-1.5">
-              <span class="text-amber-400 font-mono font-bold text-[11px] block">04 • SYMLINKS</span>
+              <span class="text-amber-400 font-mono font-bold text-[11px] block">04 • SHELL HOOKS</span>
               <div class="font-bold text-white text-sm">{t.step4Title}</div>
               <p class="text-slate-400 leading-relaxed">{t.step4Desc}</p>
             </div>
@@ -168,243 +122,240 @@ const langFlag = lang === 'en' ? '--en' : '--es';
       </div>
     </div>
 
-    <!-- VIEW 2: METHOD 2 - SOLO PLUGIN ZSH -->
-    <div id="view-method-plugin" class="hidden space-y-8 max-w-5xl mx-auto">
-      <div class="p-6 sm:p-8 rounded-3xl bg-[#090d16] border border-slate-800 shadow-2xl space-y-8">
-        <div>
-          <h3 class="text-2xl font-bold text-white">
-            {t.pluginTitle}
-          </h3>
-          <p class="text-slate-400 text-sm mt-2">
-            {t.pluginDesc}
-          </p>
+    <!-- VIEW 2: POR SHELL ESPECÍFICA (ZSH, OH MY ZSH, FISH, BASH) -->
+    <div id="view-method-shells" class="hidden space-y-8 max-w-5xl mx-auto">
+      <!-- Shell Selector Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          data-shell-tab="zsh"
+          class="shell-tab-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-800 text-white border border-emerald-500/50 inline-flex items-center gap-2"
+        >
+          <span>🐚</span> {t.tabZsh}
+        </button>
+        <button
+          type="button"
+          data-shell-tab="omz"
+          class="shell-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-2"
+        >
+          <span>⚡</span> {t.tabOmz}
+        </button>
+        <button
+          type="button"
+          data-shell-tab="fish"
+          class="shell-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-2"
+        >
+          <span>🐟</span> {t.tabFish}
+        </button>
+        <button
+          type="button"
+          data-shell-tab="bash"
+          class="shell-tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-slate-900/80 text-slate-400 border border-transparent hover:border-slate-800 hover:text-white inline-flex items-center gap-2"
+        >
+          <span>🐧</span> {t.tabBash}
+        </button>
+      </div>
+
+      <!-- Shell Content Container -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-[#090d16] border border-slate-800 shadow-2xl space-y-6">
+        
+        <!-- Shell Tab Panel: ZSH -->
+        <div id="shell-panel-zsh" class="shell-panel space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>🐚</span> Zsh (Vanilla)
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                {lang === 'en' ? 'Add the native plugin directly to your ~/.zshrc for instantaneous startup and full Ctrl+G autocompletion.' : 'Agrega el plugin nativo directamente a tu ~/.zshrc para carga instantánea y autocompletado con Ctrl+G.'}
+              </p>
+            </div>
+            <button
+              class="shell-copy-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all cursor-pointer"
+              data-copy-target="code-zsh"
+              data-copied-text={t.copied}
+            >
+              {t.copyBtn}
+            </button>
+          </div>
+          <pre class="font-mono text-xs sm:text-sm text-emerald-300 overflow-x-auto p-4 rounded-xl bg-[#050811] border border-slate-800/90"><code id="code-zsh">source ~/nacel/nacel.plugin.zsh</code></pre>
+          <div class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-400 space-y-1">
+            <span class="text-cyan-300 font-mono font-semibold block">{lang === 'en' ? 'Quick 1-line setup:' : 'Instalación rápida en 1 línea:'}</span>
+            <code class="text-slate-300 font-mono text-[11px] block select-all">git clone https://github.com/dannielnavas/nacel.git ~/nacel &amp;&amp; echo 'source ~/nacel/nacel.plugin.zsh' &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc</code>
+          </div>
         </div>
 
-        <!-- Subtabs: Oh-My-Zsh vs Zinit -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Option A: Oh-My-Zsh -->
-          <div class="p-5 rounded-2xl bg-[#050811] border border-slate-800/90 space-y-4">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-emerald-400 text-sm flex items-center gap-2 font-mono">
-                <span>⚡</span> {t.omzTitle}
+        <!-- Shell Tab Panel: OH MY ZSH -->
+        <div id="shell-panel-omz" class="shell-panel hidden space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>⚡</span> Oh My Zsh (Plugin automático)
               </h4>
-              <button
-                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
-                data-copy-target="omz-cmd"
-                data-copied-text={t.copied}
-              >
-                {t.copyBtn}
-              </button>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                {lang === 'en' ? 'Clone into your custom plugins directory and add nacel to your plugins array.' : 'Clona en tu directorio custom de plugins y añade nacel a tu lista de plugins en ~/.zshrc.'}
+              </p>
             </div>
-            <pre class="font-mono text-xs text-emerald-300 overflow-x-auto p-3 rounded-xl bg-black/50 border border-slate-900"><code id="omz-cmd">git clone https://github.com/dannielnavas/dotfiles.git /tmp/dotfiles-temp &amp;&amp; \
-mkdir -p "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/dilix" &amp;&amp; \
-cp -r /tmp/dotfiles-temp/zsh/plugins/dilix/* "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/dilix/" &amp;&amp; \
-rm -rf /tmp/dotfiles-temp</code></pre>
-            <p class="text-xs text-slate-400">
-              {t.omzDesc}
-            </p>
-            <div class="p-2.5 rounded-lg bg-black/40 border border-slate-800 font-mono text-xs text-cyan-300">
-              plugins=(... dilix)
-            </div>
+            <button
+              class="shell-copy-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all cursor-pointer"
+              data-copy-target="code-omz"
+              data-copied-text={t.copied}
+            >
+              {t.copyBtn}
+            </button>
           </div>
+          <pre class="font-mono text-xs sm:text-sm text-emerald-300 overflow-x-auto p-4 rounded-xl bg-[#050811] border border-slate-800/90"><code id="code-omz"># 1. Clona el plugin:
+git clone https://github.com/dannielnavas/nacel.git "${`ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom`}/plugins/nacel"
 
-          <!-- Option B: Zinit -->
-          <div class="p-5 rounded-2xl bg-[#050811] border border-slate-800/90 space-y-4">
-            <div class="flex items-center justify-between">
-              <h4 class="font-bold text-cyan-400 text-sm flex items-center gap-2 font-mono">
-                <span>🚀</span> {t.zinitTitle}
-              </h4>
-              <button
-                class="plugin-copy-btn text-xs font-mono px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
-                data-copy-target="zinit-cmd"
-                data-copied-text={t.copied}
-              >
-                {t.copyBtn}
-              </button>
-            </div>
-            <pre class="font-mono text-xs text-emerald-300 overflow-x-auto p-3 rounded-xl bg-black/50 border border-slate-900"><code id="zinit-cmd">zinit ice wait"0" lucid
-zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/plugins/dilix/dilix.plugin.zsh</code></pre>
-            <p class="text-xs text-slate-400">
-              {t.zinitDesc}
-            </p>
+# 2. En tu ~/.zshrc añade nacel:
+plugins=(... nacel)</code></pre>
+          <div class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-400">
+            <span class="text-emerald-400 font-mono font-semibold">plugins=(... nacel)</span> — {lang === 'en' ? 'Zero overhead, lazy-loads ask, fix, and interactive menus.' : 'Cero overhead, carga asíncrona de ask, fix y el menú interactivo.'}
           </div>
         </div>
+
+        <!-- Shell Tab Panel: FISH SHELL -->
+        <div id="shell-panel-fish" class="shell-panel hidden space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>🐟</span> Fish Shell (Nativo o Fisher)
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                {lang === 'en' ? 'Native Fish completion, event hooks on status != 0, and Fisher package manager integration.' : 'Autocompletado nativo de Fish, hooks en status != 0 y soporte para el gestor Fisher.'}
+              </p>
+            </div>
+            <button
+              class="shell-copy-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all cursor-pointer"
+              data-copy-target="code-fish"
+              data-copied-text={t.copied}
+            >
+              {t.copyBtn}
+            </button>
+          </div>
+          <pre class="font-mono text-xs sm:text-sm text-emerald-300 overflow-x-auto p-4 rounded-xl bg-[#050811] border border-slate-800/90"><code id="code-fish"># Con Fisher:
+fisher install dannielnavas/nacel
+
+# O instalación nativa directa:
+mkdir -p ~/.config/fish/conf.d
+curl -fsSL https://raw.githubusercontent.com/dannielnavas/nacel/main/nacel.fish -o ~/.config/fish/conf.d/nacel.fish</code></pre>
+        </div>
+
+        <!-- Shell Tab Panel: BASH -->
+        <div id="shell-panel-bash" class="shell-panel hidden space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <h4 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>🐧</span> GNU Bash
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                {lang === 'en' ? 'Universal PROMPT_COMMAND hook for precision error capture in Debian, Ubuntu, Fedora, and WSL2.' : 'Hook en PROMPT_COMMAND para captura quirúrgica de errores en Debian, Ubuntu, Fedora y WSL2.'}
+              </p>
+            </div>
+            <button
+              class="shell-copy-btn px-4 py-2 rounded-xl text-xs font-mono font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950 transition-all cursor-pointer"
+              data-copy-target="code-bash"
+              data-copied-text={t.copied}
+            >
+              {t.copyBtn}
+            </button>
+          </div>
+          <pre class="font-mono text-xs sm:text-sm text-emerald-300 overflow-x-auto p-4 rounded-xl bg-[#050811] border border-slate-800/90"><code id="code-bash">source ~/nacel/nacel.bash</code></pre>
+          <div class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800 text-xs text-slate-400 space-y-1">
+            <span class="text-cyan-300 font-mono font-semibold block">{lang === 'en' ? 'Quick 1-line setup:' : 'Instalación rápida en 1 línea:'}</span>
+            <code class="text-slate-300 font-mono text-[11px] block select-all">git clone https://github.com/dannielnavas/nacel.git ~/nacel &amp;&amp; echo 'source ~/nacel/nacel.bash' &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc</code>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<script define:vars={{ langFlag, lang }}>
-  // Method Toggle (Suite Completa vs Solo Plugin)
-  const btnMethodFull = document.getElementById('btn-method-full');
-  const btnMethodPlugin = document.getElementById('btn-method-plugin');
-  const viewMethodFull = document.getElementById('view-method-full');
-  const viewMethodPlugin = document.getElementById('view-method-plugin');
+<script>
+  // Main Method Toggle (Universal vs Por Shell)
+  const btnMethodUniversal = document.getElementById('btn-method-universal');
+  const btnMethodShells = document.getElementById('btn-method-shells');
+  const viewMethodUniversal = document.getElementById('view-method-universal');
+  const viewMethodShells = document.getElementById('view-method-shells');
 
-  if (btnMethodFull && btnMethodPlugin && viewMethodFull && viewMethodPlugin) {
-    btnMethodFull.addEventListener('click', () => {
-      btnMethodFull.classList.add('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
-      btnMethodFull.classList.remove('text-slate-400');
-      btnMethodPlugin.classList.remove('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
-      btnMethodPlugin.classList.add('text-slate-400');
+  if (btnMethodUniversal && btnMethodShells && viewMethodUniversal && viewMethodShells) {
+    btnMethodUniversal.addEventListener('click', () => {
+      btnMethodUniversal.classList.add('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
+      btnMethodUniversal.classList.remove('text-slate-400');
+      btnMethodShells.classList.remove('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
+      btnMethodShells.classList.add('text-slate-400');
 
-      viewMethodFull.classList.remove('hidden');
-      viewMethodPlugin.classList.add('hidden');
+      viewMethodUniversal.classList.remove('hidden');
+      viewMethodShells.classList.add('hidden');
     });
 
-    btnMethodPlugin.addEventListener('click', () => {
-      btnMethodPlugin.classList.add('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
-      btnMethodPlugin.classList.remove('text-slate-400');
-      btnMethodFull.classList.remove('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
-      btnMethodFull.classList.add('text-slate-400');
+    btnMethodShells.addEventListener('click', () => {
+      btnMethodShells.classList.add('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
+      btnMethodShells.classList.remove('text-slate-400');
+      btnMethodUniversal.classList.remove('active', 'bg-emerald-500', 'text-slate-950', 'shadow-md', 'shadow-emerald-500/20');
+      btnMethodUniversal.classList.add('text-slate-400');
 
-      viewMethodPlugin.classList.remove('hidden');
-      viewMethodFull.classList.add('hidden');
+      viewMethodShells.classList.remove('hidden');
+      viewMethodUniversal.classList.add('hidden');
     });
   }
 
-  // OS Tab Switcher data
-  const osData = {
-    auto: {
-      title: lang === 'en' ? "Automatic Cross-Platform Detection" : "Detección Automática Multiplataforma",
-      desc: lang === 'en' ? "Automatically detects macOS, CachyOS, Ubuntu, or WSL2 and applies the optimal configuration." : "Detecta automáticamente si estás en macOS, CachyOS, Ubuntu o WSL2 y ejecuta la configuración óptima sin preguntas innecesarias.",
-      code: "git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh"
-    },
-    macos: {
-      title: lang === 'en' ? "macOS Installation (Apple Silicon / Intel)" : "Instalación en macOS (Apple Silicon / Intel)",
-      desc: lang === 'en' ? "Installs Homebrew if missing, configures WezTerm with native blur, and pulls all 19 Fastfetch dynamic themes." : "Instala Homebrew si no está presente, configura WezTerm con desenfoque nativo, y descarga los 19 logos y temas dinámicos de sqlsec/fastfetch.",
-      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --macos ${langFlag}`
-    },
-    cachyos: {
-      title: lang === 'en' ? "CachyOS Installation (Arch Linux)" : "Instalación en CachyOS (Arch Linux)",
-      desc: lang === 'en' ? "Auto-detects GPU acceleration (CUDA or ROCm) for Ollama, uses Paru/Pacman and applies high-performance kernel tuning." : "Detecta aceleración por GPU (CUDA o ROCm) para Ollama, utiliza Paru/Pacman y aplica optimizaciones de kernel de alto rendimiento.",
-      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --cachyos ${langFlag}`
-    },
-    ubuntu: {
-      title: lang === 'en' ? "Ubuntu / Debian Installation" : "Instalación en Ubuntu / Debian",
-      desc: lang === 'en' ? "Sets up modern toolchains via APT and official PPAs (eza, bat, fzf, fastfetch) avoiding binary collisions in /usr/bin." : "Configura herramientas modernas mediante APT y repositorios oficiales (eza, bat, fzf, fastfetch) evitando colisiones en /usr/bin.",
-      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --ubuntu ${langFlag}`
-    },
-    wsl2: {
-      title: lang === 'en' ? "WSL2 Installation (Windows Subsystem for Linux)" : "Instalación en WSL2 (Windows Subsystem for Linux)",
-      desc: lang === 'en' ? "Generates the .wezterm.lua bridge directly in Windows %USERPROFILE% and configures clip.exe for shared clipboard." : "Genera el puente .wezterm.lua directamente en el directorio de usuario de Windows (%USERPROFILE%) y configura clip.exe para portapapeles compartido.",
-      code: `git clone https://github.com/dannielnavas/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh --wsl2 ${langFlag}`
-    }
-  };
+  // Shell Tabs (Zsh, OMZ, Fish, Bash)
+  const shellTabs = document.querySelectorAll('.shell-tab-btn');
+  const shellPanels = document.querySelectorAll('.shell-panel');
 
-  const osTabs = document.querySelectorAll('.os-tab-btn');
-  const osTitle = document.getElementById('os-tab-title');
-  const osDesc = document.getElementById('os-tab-desc');
-  const osCode = document.getElementById('os-tab-code');
-  const osCopyBtn = document.getElementById('os-copy-cmd-btn');
-  const osCopyFeedback = document.getElementById('os-copy-feedback');
-  const osDetectBanner = document.getElementById('os-detect-banner');
-  const osDetectBannerText = document.getElementById('os-detect-banner-text');
-
-  function activateOsTab(osKey, isDetected = false) {
-    const data = osData[osKey] || osData.auto;
-
-    osTabs.forEach(btn => {
-      const key = btn.getAttribute('data-os-tab');
-      const recBadge = btn.querySelector('.os-rec-badge');
-      if (key === osKey) {
-        btn.classList.add('bg-slate-800', 'text-white', 'border-emerald-500/50');
-        btn.classList.remove('bg-slate-900/80', 'text-slate-400', 'border-transparent');
-        if (isDetected && recBadge) recBadge.classList.remove('hidden');
-      } else {
-        btn.classList.remove('bg-slate-800', 'text-white', 'border-emerald-500/50');
-        btn.classList.add('bg-slate-900/80', 'text-slate-400', 'border-transparent');
-        if (recBadge && !isDetected) recBadge.classList.add('hidden');
-      }
-    });
-
-    if (osTitle) {
-      osTitle.textContent = isDetected ? `${data.title} (${lang === 'en' ? 'Recommended for you' : 'Recomendado para ti'})` : data.title;
-    }
-    if (osDesc) osDesc.textContent = data.desc;
-    if (osCode) osCode.textContent = data.code;
-
-    if (isDetected && osDetectBanner && osDetectBannerText) {
-      osDetectBanner.classList.remove('hidden');
-      osDetectBannerText.textContent = lang === 'en'
-        ? `We detected your OS: ${osKey.toUpperCase()}. The recommended installation command has been pre-selected.`
-        : `Detectamos tu sistema: ${osKey.toUpperCase()}. El comando recomendado ha sido preseleccionado para tu equipo.`;
-    }
-  }
-
-  // OS detection
-  function detectOS() {
-    try {
-      const ua = (navigator.userAgent || '').toLowerCase();
-      const platform = (((navigator).userAgentData && (navigator).userAgentData.platform) || navigator.platform || '').toLowerCase();
-
-      if (platform.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) {
-        return 'macos';
-      }
-      if (platform.includes('win') || ua.includes('windows')) {
-        return 'wsl2';
-      }
-      if (platform.includes('linux') || ua.includes('linux') || ua.includes('x11')) {
-        if (ua.includes('cachyos') || ua.includes('arch') || ua.includes('manjaro') || ua.includes('endeavour')) {
-          return 'cachyos';
-        }
-        return 'ubuntu';
-      }
-    } catch (e) {
-      console.warn('OS detection fallback', e);
-    }
-    return 'auto';
-  }
-
-  // Auto-select detected OS on load
-  const detectedOs = detectOS();
-  if (detectedOs && detectedOs !== 'auto' && osData[detectedOs]) {
-    activateOsTab(detectedOs, true);
-  }
-
-  // Listen to changes triggered from Hero or OsBadges
-  window.addEventListener('dilix-os-selected', (e) => {
-    const customEvt = e;
-    const targetOs = customEvt.detail?.os;
-    if (targetOs && osData[targetOs]) {
-      activateOsTab(targetOs, false);
-    }
-  });
-
-  osTabs.forEach(btn => {
+  shellTabs.forEach(btn => {
     btn.addEventListener('click', () => {
-      const osKey = btn.getAttribute('data-os-tab');
-      if (osKey && osData[osKey]) {
-        activateOsTab(osKey, false);
+      const targetShell = btn.getAttribute('data-shell-tab');
+      if (!targetShell) return;
+
+      shellTabs.forEach(b => {
+        b.classList.remove('bg-slate-800', 'text-white', 'border-emerald-500/50');
+        b.classList.add('bg-slate-900/80', 'text-slate-400', 'border-transparent');
+      });
+      btn.classList.add('bg-slate-800', 'text-white', 'border-emerald-500/50');
+      btn.classList.remove('bg-slate-900/80', 'text-slate-400', 'border-transparent');
+
+      shellPanels.forEach(panel => {
+        panel.classList.add('hidden');
+      });
+      const activePanel = document.getElementById(`shell-panel-${targetShell}`);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
       }
     });
   });
 
-  // OS copy button
-  if (osCopyBtn && osCopyFeedback && osCode) {
-    osCopyBtn.addEventListener('click', async () => {
-      const copyText = osCopyBtn.getAttribute('data-copy-text') || 'Copiar Comando';
-      const copiedText = osCopyBtn.getAttribute('data-copied-text') || '¡Copiado!';
+  // Universal copy button
+  const universalCopyBtn = document.getElementById('universal-copy-btn');
+  const universalCopyLabel = document.getElementById('universal-copy-label');
+  const universalCodeText = document.getElementById('universal-code-text');
+
+  if (universalCopyBtn && universalCopyLabel && universalCodeText) {
+    universalCopyBtn.addEventListener('click', async () => {
+      const copyText = universalCopyBtn.getAttribute('data-copy-text') || 'Copiar Comando';
+      const copiedText = universalCopyBtn.getAttribute('data-copied-text') || '✓ ¡Copiado!';
       try {
-        await navigator.clipboard.writeText(osCode.innerText.trim());
-        osCopyFeedback.textContent = copiedText;
-        osCopyBtn.classList.add('bg-emerald-400');
+        await navigator.clipboard.writeText(universalCodeText.innerText.trim());
+        universalCopyLabel.textContent = copiedText;
+        universalCopyBtn.classList.add('bg-emerald-400');
         setTimeout(() => {
-          osCopyFeedback.textContent = copyText;
-          osCopyBtn.classList.remove('bg-emerald-400');
+          universalCopyLabel.textContent = copyText;
+          universalCopyBtn.classList.remove('bg-emerald-400');
         }, 2000);
       } catch (err) {
-        console.error('Error al copiar:', err);
+        console.error('Error copying:', err);
       }
     });
   }
 
-  // Plugin copy buttons
-  const pluginCopyBtns = document.querySelectorAll('.plugin-copy-btn');
-  pluginCopyBtns.forEach(btn => {
+  // Shell copy buttons
+  const shellCopyBtns = document.querySelectorAll('.shell-copy-btn');
+  shellCopyBtns.forEach(btn => {
     btn.addEventListener('click', async () => {
       const targetId = btn.getAttribute('data-copy-target');
-      const copiedText = btn.getAttribute('data-copied-text') || '¡Copiado!';
+      const copiedText = btn.getAttribute('data-copied-text') || '✓ ¡Copiado!';
       if (!targetId) return;
       const targetEl = document.getElementById(targetId);
       if (targetEl) {
@@ -412,11 +363,13 @@ zinit snippet https://raw.githubusercontent.com/dannielnavas/dotfiles/main/zsh/p
           await navigator.clipboard.writeText(targetEl.innerText.trim());
           const original = btn.textContent;
           btn.textContent = copiedText;
+          btn.classList.add('bg-emerald-400');
           setTimeout(() => {
             btn.textContent = original;
+            btn.classList.remove('bg-emerald-400');
           }, 2000);
         } catch (err) {
-          console.error('Error al copiar:', err);
+          console.error('Error copying shell command:', err);
         }
       }
     });

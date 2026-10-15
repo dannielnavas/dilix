@@ -10,7 +10,7 @@ const t = translations[lang].demo;
 ---
 
 <section id="demo" class="py-24 relative overflow-hidden bg-[#060911]">
-  <!-- Subtle ambient glow in background (No purple/indigo) -->
+  <!-- Subtle ambient glow in background -->
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] glow-emerald rounded-full blur-3xl pointer-events-none -z-10 opacity-30"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,39 +26,39 @@ const t = translations[lang].demo;
         {t.subtitle}
       </p>
 
-      <!-- Command Quick Selection Buttons (Clean pills) -->
+      <!-- Command Quick Selection Buttons -->
       <div class="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
         <button
           type="button"
-          data-demo-cmd="ask"
+          data-demo-mode="fix"
           class="demo-cmd-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-mono transition-all cursor-pointer bg-emerald-500 text-slate-950 font-bold border border-emerald-400 shadow-md shadow-emerald-500/20"
-        >
-          {t.btnAsk}
-        </button>
-        <button
-          type="button"
-          data-demo-cmd="fix"
-          class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
           {t.btnFix}
         </button>
         <button
           type="button"
-          data-demo-cmd="menu"
+          data-demo-mode="ask"
+          class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
+        >
+          {t.btnAsk}
+        </button>
+        <button
+          type="button"
+          data-demo-mode="menu"
           class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
           {t.btnMenu}
         </button>
         <button
           type="button"
-          data-demo-cmd="ff"
+          data-demo-mode="pipes"
           class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
-          {t.btnFf}
+          {t.btnPipes}
         </button>
         <button
           type="button"
-          data-demo-cmd="explain"
+          data-demo-mode="explain"
           class="demo-cmd-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium border transition-all cursor-pointer bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700 hover:text-white"
         >
           {t.btnExplain}
@@ -73,7 +73,7 @@ const t = translations[lang].demo;
       </div>
     </div>
 
-    <!-- Terminal Window Container (Clean authentic shell chrome) -->
+    <!-- Terminal Window Container -->
     <div
       class="max-w-4xl mx-auto rounded-2xl bg-[#090d16] border border-slate-800 shadow-2xl terminal-shadow overflow-hidden"
       data-lang={lang}
@@ -86,18 +86,17 @@ const t = translations[lang].demo;
           <span class="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
           <span class="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
           <span class="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
-          <span id="demo-active-title" class="ml-2 font-mono text-xs text-slate-300 font-medium">ask "como ver puertos y procesos"</span>
+          <span id="demo-active-title" class="ml-2 font-mono text-xs text-slate-300 font-medium">
+            {lang === 'en' ? 'git checkout feature/new-branch (exit 1) • llama3.2:1b' : 'git checkout feature/nueva-rama (exit 1) • llama3.2:1b'}
+          </span>
         </div>
         <div class="flex items-center gap-3">
-          <span id="demo-os-tag" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800/80 text-slate-300 border border-slate-700 hidden sm:inline">
-            Host: Auto
-          </span>
           <span id="demo-active-badge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hidden sm:inline">
-            Dilix Copilot
+            llama3.2:1b Diagnosis
           </span>
           <button
             id="demo-copy-output"
-            class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition-all cursor-pointer"
+            class="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 transition-all cursor-pointer font-mono"
             title={t.copyOutput}
           >
             <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,26 +107,157 @@ const t = translations[lang].demo;
         </div>
       </div>
 
-      <!-- Real Terminal GIF Screen Area -->
-      <div id="terminal-screen" class="relative bg-[#16161e] overflow-hidden min-h-[300px]">
-        <img
-          id="demo-terminal-gif"
-          src={`/${lang}/hero-ask.gif`}
-          alt="Dilix terminal recording preview"
-          class="w-full h-auto block select-none transition-opacity duration-200"
-          loading="eager"
-          width="1200"
-          height="680"
-        />
+      <!-- Terminal Screen Area -->
+      <div id="terminal-screen" class="relative bg-[#16161e] overflow-hidden min-h-[380px]">
+        
+        <!-- Interactive Simulated Terminal Output: FIX FLOW (llama3.2:1b) -->
+        <div id="demo-simulation-fix" class="p-5 sm:p-6 font-mono text-xs sm:text-sm text-slate-200 space-y-3 leading-relaxed overflow-x-auto">
+          {lang === 'en' ? (
+            <>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="text-emerald-400 font-bold">❯</span>
+                <span class="text-white">git checkout feature/new-branch</span>
+              </div>
+              <div class="text-rose-400">
+                error: pathspec 'feature/new-branch' did not match any file(s) known to git
+              </div>
 
-        <div id="demo-terminal-placeholder" class="hidden min-h-[320px] flex flex-col items-center justify-center p-8 text-center bg-[#16161e] space-y-3 font-mono">
+              <div class="text-slate-400 pt-2">
+                <span class="text-amber-400">╭─ ❌ Failed (1)</span> • Analyze with Nacel? [y/N] (or press Ctrl+G): <span class="text-emerald-400 font-bold">y</span>
+              </div>
+              <div class="text-cyan-300 flex items-center gap-2">
+                <span class="animate-pulse">✨</span> Nacel Analyzing error trace with <span class="text-emerald-400 font-bold">llama3.2:1b</span>...
+              </div>
+
+              <!-- Nacel Diagnosis Box -->
+              <div class="mt-3 p-4 rounded-xl bg-[#1a1b26] border border-emerald-500/40 text-slate-200 shadow-xl space-y-2">
+                <div class="text-emerald-400 font-bold border-b border-slate-800 pb-2 flex items-center justify-between">
+                  <span>╭─ ✨ Nacel • Error Diagnosis &amp; Solution</span>
+                  <span class="text-[10px] text-slate-400 font-normal">Inference: 140ms</span>
+                </div>
+                <div class="text-rose-300 text-xs">
+                  │ <span class="text-rose-400 font-semibold">❌ Failed:</span> git checkout feature/new-branch (exit code: 1)
+                </div>
+                <div class="text-slate-300 text-xs">
+                  │ <span class="text-cyan-300 font-semibold">🔍 Root cause:</span> Local branch 'feature/new-branch' does not exist in the repository yet.
+                </div>
+                <div class="text-slate-300 text-xs">
+                  │ <span class="text-amber-300 font-semibold">💡 What to do:</span> Create the branch with the -b flag before switching to it.
+                </div>
+                <div class="pt-2 text-emerald-400 text-xs">
+                  │ <span class="font-bold text-white">⚡ Suggested Fix:</span>
+                </div>
+                <div class="ml-4 p-2.5 rounded-lg bg-black/60 border border-emerald-500/30 text-emerald-300 font-bold text-xs sm:text-sm flex items-center justify-between">
+                  <code id="suggested-fix-cmd">git checkout -b feature/new-branch</code>
+                  <span class="text-[10px] text-slate-400 font-normal">[Enter to run]</span>
+                </div>
+                <div class="text-slate-500 text-[11px] pt-1">
+                  ╰───────────────────────────────────────────────────────────────────────────────
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 text-xs text-slate-400 pt-2">
+                <span>Action:</span>
+                <button type="button" class="action-quick-btn px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-slate-950 transition-colors cursor-pointer font-bold" data-action-run="git checkout -b feature/new-branch">
+                  [↵ Enter/e] Execute
+                </button>
+                <button type="button" class="action-quick-btn px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer" data-action-prompt="git checkout -b feature/new-branch">
+                  [m] In prompt
+                </button>
+                <button type="button" class="action-quick-btn px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer" data-action-copy="git checkout -b feature/new-branch">
+                  [c] Copy
+                </button>
+                <span class="text-slate-500">[q] Quit</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div class="flex items-center gap-2 text-slate-300">
+                <span class="text-emerald-400 font-bold">❯</span>
+                <span class="text-white">git checkout feature/nueva-rama</span>
+              </div>
+              <div class="text-rose-400">
+                error: pathspec 'feature/nueva-rama' did not match any file(s) known to git
+              </div>
+
+              <div class="text-slate-400 pt-2">
+                <span class="text-amber-400">╭─ ❌ Falló (1)</span> • ¿Analizar con Nacel? [s/N] (o pulsa Ctrl+G): <span class="text-emerald-400 font-bold">s</span>
+              </div>
+              <div class="text-cyan-300 flex items-center gap-2">
+                <span class="animate-pulse">✨</span> Nacel Examinando la anomalía con <span class="text-emerald-400 font-bold">llama3.2:1b</span>...
+              </div>
+
+              <!-- Nacel Diagnosis Box -->
+              <div class="mt-3 p-4 rounded-xl bg-[#1a1b26] border border-emerald-500/40 text-slate-200 shadow-xl space-y-2">
+                <div class="text-emerald-400 font-bold border-b border-slate-800 pb-2 flex items-center justify-between">
+                  <span>╭─ ✨ Nacel • Diagnóstico y Solución de Error</span>
+                  <span class="text-[10px] text-slate-400 font-normal">Inferencia: 140ms</span>
+                </div>
+                <div class="text-rose-300 text-xs">
+                  │ <span class="text-rose-400 font-semibold">❌ Falló:</span> git checkout feature/nueva-rama (exit code: 1)
+                </div>
+                <div class="text-slate-300 text-xs">
+                  │ <span class="text-cyan-300 font-semibold">🔍 Causa lógica:</span> La rama local 'feature/nueva-rama' aún no existe en el repositorio.
+                </div>
+                <div class="text-slate-300 text-xs">
+                  │ <span class="text-amber-300 font-semibold">💡 Qué toca hacer:</span> Crear la rama con la bandera -b antes de cambiar a ella.
+                </div>
+                <div class="pt-2 text-emerald-400 text-xs">
+                  │ <span class="font-bold text-white">⚡ Solución sugerida:</span>
+                </div>
+                <div class="ml-4 p-2.5 rounded-lg bg-black/60 border border-emerald-500/30 text-emerald-300 font-bold text-xs sm:text-sm flex items-center justify-between">
+                  <code id="suggested-fix-cmd">git checkout -b feature/nueva-rama</code>
+                  <span class="text-[10px] text-slate-400 font-normal">[Enter para ejecutar]</span>
+                </div>
+                <div class="text-slate-500 text-[11px] pt-1">
+                  ╰───────────────────────────────────────────────────────────────────────────────
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 text-xs text-slate-400 pt-2">
+                <span>Acción:</span>
+                <button type="button" class="action-quick-btn px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500 hover:text-slate-950 transition-colors cursor-pointer font-bold" data-action-run="git checkout -b feature/nueva-rama">
+                  [↵ Enter/e] Ejecutar
+                </button>
+                <button type="button" class="action-quick-btn px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer" data-action-prompt="git checkout -b feature/nueva-rama">
+                  [m] En el prompt
+                </button>
+                <button type="button" class="action-quick-btn px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white transition-colors cursor-pointer" data-action-copy="git checkout -b feature/nueva-rama">
+                  [c] Copiar
+                </button>
+                <span class="text-slate-500">[q] Salir</span>
+              </div>
+            </>
+          )}
+
+          <div id="simulated-execution-result" class="hidden pt-3 border-t border-slate-800 text-xs text-emerald-400">
+            ✓ Switched to a new branch 'feature/{lang === 'en' ? 'new-branch' : 'nueva-rama'}'
+          </div>
+        </div>
+
+        <!-- GIF media displays for other modes -->
+        <div id="demo-media-container" class="hidden">
+          <img
+            id="demo-terminal-gif"
+            src={`/${lang}/hero-ask.gif`}
+            alt="Nacel terminal recording preview"
+            class="w-full h-auto block select-none transition-opacity duration-200"
+            loading="lazy"
+            width="1200"
+            height="680"
+          />
+        </div>
+
+        <!-- Clear state placeholder -->
+        <div id="demo-terminal-placeholder" class="hidden min-h-[340px] flex flex-col items-center justify-center p-8 text-center bg-[#16161e] space-y-3 font-mono">
           <div class="text-slate-500 text-sm">
             {lang === 'en' ? 'Terminal session cleared.' : 'Sesión de terminal reiniciada.'}
           </div>
           <div class="text-xs text-slate-400">
-            {lang === 'en' ? 'Click any preset command above or type below to replay real execution.' : 'Haz clic en cualquier comando arriba o escribe abajo para ver la ejecución real.'}
+            {lang === 'en' ? 'Click any preset command above or type below to replay execution.' : 'Haz clic en cualquier comando arriba o escribe abajo para ver la ejecución.'}
           </div>
         </div>
+
       </div>
 
       <!-- Bottom Interactive Input bar -->
@@ -149,76 +279,92 @@ const t = translations[lang].demo;
   const container = document.querySelector('[data-lang]');
   const currentLang = container?.getAttribute('data-lang') || 'es';
   const copiedLabel = container?.getAttribute('data-copied-text') || '¡Copiado!';
-  const copyLabel = container?.getAttribute('data-copy-text') || 'Copiar Comando';
+  const copyLabel = container?.getAttribute('data-copy-text') || 'Copiar';
 
-  const demoData = {
-    ask: {
-      gif: `/${currentLang}/hero-ask.gif`,
-      cmd: currentLang === 'en' ? 'ask "how to find listening ports and their processes"' : 'ask "como ver puertos y procesos escuchando en el sistema"',
-      title: currentLang === 'en' ? 'ask "how to find listening ports..."' : 'ask "como ver puertos y procesos..."',
-      badge: 'Dilix Copilot'
-    },
+  const demoModes = {
     fix: {
-      gif: `/${currentLang}/feature-fix.gif`,
-      cmd: 'fix',
-      title: 'fix — Error auto-diagnosis (Ctrl + G)',
-      badge: 'Auto-Diagnosis'
+      type: 'interactive',
+      title: currentLang === 'en' ? 'git checkout feature/new-branch (exit 1) • llama3.2:1b' : 'git checkout feature/nueva-rama (exit 1) • llama3.2:1b',
+      badge: 'llama3.2:1b Diagnosis',
+      copyCmd: currentLang === 'en' ? 'git checkout -b feature/new-branch' : 'git checkout -b feature/nueva-rama'
+    },
+    ask: {
+      type: 'gif',
+      gif: `/${currentLang}/hero-ask.gif`,
+      title: currentLang === 'en' ? 'ask "how to find listening ports..."' : 'ask "como ver puertos y procesos..."',
+      badge: 'Nacel Copilot (Natural AI)',
+      copyCmd: currentLang === 'en' ? 'ask "how to find listening ports and their processes"' : 'ask "como ver puertos y procesos escuchando en el sistema"'
     },
     menu: {
+      type: 'gif',
       gif: `/${currentLang}/feature-menu.gif`,
-      cmd: 'dilix menu',
-      title: 'dilix menu — Interactive CLI Hub',
-      badge: 'Interactive Menu'
+      title: 'nacel menu — Interactive CLI Control Center',
+      badge: 'Interactive Menu',
+      copyCmd: 'nacel menu'
     },
-    ff: {
-      gif: `/${currentLang}/feature-terminal.gif`,
-      cmd: 'ff',
-      title: 'ff — Tokyo Night & Fastfetch',
-      badge: 'Terminal Showcase'
+    pipes: {
+      type: 'interactive_pipe',
+      title: 'pytest -q 2>&1 | nacel fix',
+      badge: 'Pipe Error Triage',
+      copyCmd: 'cmd 2>&1 | nacel fix'
     },
     explain: {
+      type: 'gif',
       gif: `/${currentLang}/feature-explain.gif`,
-      cmd: 'dilix explain "git rebase -i HEAD~3"',
-      title: 'dilix explain "git rebase -i HEAD~3"',
-      badge: 'Code Explanation'
+      title: 'nacel explain "git rebase -i HEAD~3"',
+      badge: 'Code Explanation',
+      copyCmd: 'nacel explain "git rebase -i HEAD~3"'
     }
   };
 
+  const simulationFix = document.getElementById('demo-simulation-fix');
+  const mediaContainer = document.getElementById('demo-media-container');
   const gifElement = document.getElementById('demo-terminal-gif') as HTMLImageElement | null;
   const placeholderElement = document.getElementById('demo-terminal-placeholder');
   const activeTitle = document.getElementById('demo-active-title');
   const activeBadge = document.getElementById('demo-active-badge');
-  const cmdBtns = document.querySelectorAll('.demo-cmd-btn');
+  const modeBtns = document.querySelectorAll('.demo-cmd-btn');
   const clearBtn = document.getElementById('demo-clear-btn');
   const customInput = document.getElementById('terminal-custom-input') as HTMLInputElement | null;
   const copyOutputBtn = document.getElementById('demo-copy-output');
   const copyFeedback = document.getElementById('demo-copy-feedback');
+  const executionResult = document.getElementById('simulated-execution-result');
+  const actionButtons = document.querySelectorAll('.action-quick-btn');
 
-  let currentActiveCmd = 'ask';
+  let currentMode = 'fix';
 
-  function switchCommand(cmdKey: string) {
-    const data = demoData[cmdKey as keyof typeof demoData] || demoData.ask;
-    currentActiveCmd = cmdKey in demoData ? cmdKey : 'ask';
+  function switchMode(modeKey: string) {
+    const config = demoModes[modeKey as keyof typeof demoModes] || demoModes.fix;
+    currentMode = modeKey in demoModes ? modeKey : 'fix';
 
-    if (gifElement) {
-      gifElement.classList.add('opacity-0');
-      setTimeout(() => {
-        gifElement.src = data.gif;
-        gifElement.classList.remove('opacity-0');
-      }, 100);
+    if (placeholderElement) placeholderElement.classList.add('hidden');
 
-      if (placeholderElement) {
-        placeholderElement.classList.add('hidden');
-        gifElement.classList.remove('hidden');
+    if (modeKey === 'fix') {
+      if (simulationFix) simulationFix.classList.remove('hidden');
+      if (mediaContainer) mediaContainer.classList.add('hidden');
+      if (executionResult) executionResult.classList.add('hidden');
+    } else {
+      if (simulationFix) simulationFix.classList.add('hidden');
+      if (mediaContainer) {
+        mediaContainer.classList.remove('hidden');
+        if (gifElement && 'gif' in config && config.gif) {
+          gifElement.classList.add('opacity-0');
+          setTimeout(() => {
+            if (gifElement && 'gif' in config && config.gif) {
+              gifElement.src = config.gif;
+              gifElement.classList.remove('opacity-0');
+            }
+          }, 80);
+        }
       }
     }
 
-    if (activeTitle) activeTitle.textContent = data.title;
-    if (activeBadge) activeBadge.textContent = data.badge;
+    if (activeTitle) activeTitle.textContent = config.title;
+    if (activeBadge) activeBadge.textContent = config.badge;
 
-    cmdBtns.forEach(btn => {
-      const btnCmd = btn.getAttribute('data-demo-cmd');
-      if (btnCmd === cmdKey) {
+    modeBtns.forEach(btn => {
+      const bMode = btn.getAttribute('data-demo-mode');
+      if (bMode === modeKey) {
         btn.classList.add('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-400', 'shadow-md', 'shadow-emerald-500/20');
         btn.classList.remove('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
       } else {
@@ -229,23 +375,46 @@ const t = translations[lang].demo;
   }
 
   // Button clicks
-  cmdBtns.forEach(btn => {
+  modeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      const cmd = btn.getAttribute('data-demo-cmd');
-      if (cmd) switchCommand(cmd);
+      const m = btn.getAttribute('data-demo-mode');
+      if (m) switchMode(m);
+    });
+  });
+
+  // Action Buttons inside Fix simulation (Execute, Prompt, Copy)
+  actionButtons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const runCmd = btn.getAttribute('data-action-run');
+      const promptCmd = btn.getAttribute('data-action-prompt');
+      const copyCmd = btn.getAttribute('data-action-copy');
+
+      if (runCmd && executionResult) {
+        executionResult.classList.remove('hidden');
+        btn.classList.add('bg-emerald-400', 'text-slate-950');
+      } else if (promptCmd && customInput) {
+        customInput.value = promptCmd;
+        customInput.focus();
+      } else if (copyCmd) {
+        try {
+          await navigator.clipboard.writeText(copyCmd);
+          const original = btn.textContent;
+          btn.textContent = `✓ ${copiedLabel}`;
+          setTimeout(() => { btn.textContent = original; }, 2000);
+        } catch (e) {}
+      }
     });
   });
 
   // Clear button
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      if (gifElement && placeholderElement) {
-        gifElement.classList.add('hidden');
-        placeholderElement.classList.remove('hidden');
-      }
+      if (simulationFix) simulationFix.classList.add('hidden');
+      if (mediaContainer) mediaContainer.classList.add('hidden');
+      if (placeholderElement) placeholderElement.classList.remove('hidden');
       if (activeTitle) activeTitle.textContent = currentLang === 'en' ? 'Session cleared' : 'Sesión reiniciada';
       if (activeBadge) activeBadge.textContent = 'Idle';
-      cmdBtns.forEach(b => {
+      modeBtns.forEach(b => {
         b.classList.remove('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-400', 'shadow-md', 'shadow-emerald-500/20');
         b.classList.add('bg-slate-900/80', 'text-slate-300', 'border-slate-800');
       });
@@ -257,16 +426,22 @@ const t = translations[lang].demo;
     customInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const val = customInput.value.trim().toLowerCase();
-        if (!val) return;
+        if (!val) {
+          // If in fix mode and hits Enter, simulate execution
+          if (currentMode === 'fix' && executionResult) {
+            executionResult.classList.remove('hidden');
+          }
+          return;
+        }
 
-        if (val.includes('fix')) switchCommand('fix');
-        else if (val.includes('menu')) switchCommand('menu');
-        else if (val.includes('ff') || val.includes('fastfetch') || val.includes('term')) switchCommand('ff');
-        else if (val.includes('explain') || val.includes('rebase')) switchCommand('explain');
+        if (val.includes('fix')) switchMode('fix');
+        else if (val.includes('menu')) switchMode('menu');
+        else if (val.includes('pipe')) switchMode('pipes');
+        else if (val.includes('explain') || val.includes('rebase')) switchMode('explain');
         else if (val === 'clear') {
           if (clearBtn) clearBtn.click();
         } else {
-          switchCommand('ask');
+          switchMode('ask');
           if (activeTitle) activeTitle.textContent = customInput.value;
         }
         customInput.value = '';
@@ -274,12 +449,12 @@ const t = translations[lang].demo;
     });
   }
 
-  // Copy command
+  // Copy command button
   if (copyOutputBtn && copyFeedback) {
     copyOutputBtn.addEventListener('click', async () => {
-      const activeData = demoData[currentActiveCmd as keyof typeof demoData] || demoData.ask;
+      const activeData = demoModes[currentMode as keyof typeof demoModes] || demoModes.fix;
       try {
-        await navigator.clipboard.writeText(activeData.cmd);
+        await navigator.clipboard.writeText(activeData.copyCmd);
         copyFeedback.textContent = copiedLabel;
         copyOutputBtn.classList.add('border-emerald-500', 'text-emerald-400');
         setTimeout(() => {
@@ -291,24 +466,4 @@ const t = translations[lang].demo;
       }
     });
   }
-
-  // Detect Host OS for titlebar tag
-  try {
-    const ua = (navigator.userAgent || '').toLowerCase();
-    const plat = (((navigator as any).userAgentData?.platform) || navigator.platform || '').toLowerCase();
-    const osTag = document.getElementById('demo-os-tag');
-    if (osTag) {
-      if (plat.includes('mac') || ua.includes('macintosh') || ua.includes('mac os x')) {
-        osTag.textContent = 'Host: macOS (Darwin)';
-      } else if (plat.includes('win') || ua.includes('windows')) {
-        osTag.textContent = 'Host: WSL2 (Windows)';
-      } else if (ua.includes('cachyos') || ua.includes('arch')) {
-        osTag.textContent = 'Host: CachyOS / Arch';
-      } else if (ua.includes('ubuntu') || ua.includes('debian')) {
-        osTag.textContent = 'Host: Ubuntu Linux';
-      } else {
-        osTag.textContent = 'Host: Linux / Unix';
-      }
-    }
-  } catch (e) {}
 </script>

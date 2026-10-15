@@ -1,7 +1,7 @@
 {
-  "name": "Dilix — Ultimate Terminal Suite with Local AI",
-  "short_name": "Dilix",
-  "description": "GPU-accelerated terminal stack with WezTerm, Starship, modular Zsh, and Dilix local AI copilot with Ollama.",
+  "name": "Nacel — Terminal Local AI Copilot & Suite",
+  "short_name": "Nacel",
+  "description": "Asistente de IA local para terminal con Ollama, diagnóstico quirúrgico de errores y soporte multi-shell (Zsh, Fish, Bash).",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070b13",

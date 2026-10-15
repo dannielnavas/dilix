@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dilix.danniel.dev',
+  site: 'https://nacel.danniel.dev',
   integrations: [sitemap()],
   i18n: {
     defaultLocale: 'es',

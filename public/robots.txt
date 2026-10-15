@@ -3,5 +3,5 @@ User-agent: *
 Allow: /
 
 # Host & Sitemaps
-Host: https://dilix.danniel.dev
-Sitemap: https://dilix.danniel.dev/sitemap-index.xml
+Host: https://nacel.danniel.dev
+Sitemap: https://nacel.danniel.dev/sitemap-index.xml

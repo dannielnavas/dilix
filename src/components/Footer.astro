@@ -22,7 +22,7 @@ const tNav = translations[lang].nav;
               <span class="text-emerald-400 font-mono font-black text-sm">&gt;_</span>
             </div>
           </div>
-          <span class="text-white font-bold text-lg tracking-tight">Dilix Dotfiles</span>
+          <span class="text-white font-bold text-lg tracking-tight">Nacel</span>
         </div>
         <p class="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
           {t.desc}
@@ -39,6 +39,7 @@ const tNav = translations[lang].nav;
         <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider font-mono">{t.navTitle}</h4>
         <ul class="space-y-2 text-xs sm:text-sm">
           <li><a href="#caracteristicas" class="hover:text-white transition-colors">{tNav.features}</a></li>
+          <li><a href="#modelos" class="hover:text-white transition-colors">{lang === 'en' ? 'AI Models' : 'Modelos IA'}</a></li>
           <li><a href="#demo" class="hover:text-white transition-colors">{tNav.demo}</a></li>
           <li><a href="#instalacion" class="hover:text-white transition-colors">{tNav.installation}</a></li>
           <li><a href="#faq" class="hover:text-white transition-colors">{tNav.faq}</a></li>
@@ -51,12 +52,12 @@ const tNav = translations[lang].nav;
         <ul class="space-y-2 text-xs sm:text-sm">
           <li>
             <a
-              href="https://github.com/dannielnavas/dotfiles"
+              href="https://github.com/dannielnavas/nacel"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors font-medium"
             >
-              <span>GitHub: dannielnavas/dotfiles</span>
+              <span>GitHub: dannielnavas/nacel</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
               </svg>
@@ -75,7 +76,7 @@ const tNav = translations[lang].nav;
         {t.credits}
       </div>
       <div class="font-mono text-[11px] text-slate-600">
-        git clone ~/dotfiles &amp;&amp; ./install.sh
+        curl -fsSL https://raw.githubusercontent.com/dannielnavas/nacel/main/install.sh | bash
       </div>
     </div>
   </div>

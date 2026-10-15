@@ -99,6 +99,7 @@ const icons: Record<string, string> = {
 
     item.addEventListener('click', () => {
       if (plat) {
+        window.dispatchEvent(new CustomEvent('nacel-os-selected', { detail: { os: plat } }));
         window.dispatchEvent(new CustomEvent('dilix-os-selected', { detail: { os: plat } }));
         const installSection = document.getElementById('instalacion');
         if (installSection) {
